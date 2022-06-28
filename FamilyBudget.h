@@ -6,5 +6,12 @@
 using namespace std;
 
 
+class FamilyBudget {
+
+
+
+
+};
+
 
 #endif
