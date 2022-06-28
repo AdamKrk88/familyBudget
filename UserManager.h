@@ -6,6 +6,7 @@
 
 #include "User.h"
 #include "AuxiliaryMethods.h"
+#include "UserFile.h"
 
 using namespace std;
 
@@ -13,6 +14,7 @@ using namespace std;
 class UserManager {
 
 vector<User> users;
+UserFile userFile;
 
 User provideDataForNewUser();
 int loadIdForNewUser();
@@ -20,6 +22,7 @@ bool checkIfLoginForNewUserExistInSystem(string login);
 
 
 public:
+    UserManager(string nameOfUserFile) : userFile(nameOfUserFile) {};
     void registerUser();
     void printAllUsers();
 

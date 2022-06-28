@@ -6,6 +6,7 @@ void UserManager :: registerUser() {
     User user = provideDataForNewUser();
 
     users.push_back(user);
+    userFile.addUserToFile(user);
 
     cout << endl << "Account created" << endl << endl;
     system("pause");
@@ -21,11 +22,13 @@ User UserManager :: provideDataForNewUser() {
     string name;
     cout << "Enter your name: ";
     cin >> name;
+    name = AuxiliaryMethods :: convertFirstLetterOfOneStringToBeInUpperCaseRemainingPartInLowerCase(name);
     user.setName(name);
 
     string surname;
     cout << "Enter your surname: ";
     cin >> surname;
+    surname = AuxiliaryMethods :: convertFirstLetterOfOneStringToBeInUpperCaseRemainingPartInLowerCase(surname);
     user.setSurname(surname);
 
     string login;

@@ -6,12 +6,12 @@ using namespace std;
 int main()
 {
 
-    UserManager userManager;
+    UserManager userManager("Users.xml");
     userManager.registerUser();
     userManager.registerUser();
     userManager.registerUser();
 
-    userManager.printAllUsers();
+  //  userManager.printAllUsers();
 
 
 

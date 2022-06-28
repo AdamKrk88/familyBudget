@@ -3,15 +3,18 @@
 
 #include <iostream>
 #include <algorithm>
+#include <sstream>
 
 using namespace std;
 
 
 class AuxiliaryMethods {
 
+public:
 static string loadStringLineFromKeyboard();
 static string deleteSpaceBeforeAndAfterString(string stringToAdjust);
-static string convertFirstLetterOfNameToBeInUpperCaseRemainingPartInLowerCase(string text);
+static string convertFirstLetterOfOneStringToBeInUpperCaseRemainingPartInLowerCase(string text);
+static string convertFromIntToString(int number);
 
 };
 
