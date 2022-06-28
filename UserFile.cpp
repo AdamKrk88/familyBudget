@@ -23,3 +23,57 @@ void UserFile :: addUserToFile(User user) {
 
     xml.Save(NAME_OF_USER_FILE);
 }
+
+
+vector<User> UserFile :: loadAllUsersFromFileToVector() {
+
+    CMarkup xml;
+    User user;
+    vector<User> users;
+    int numberOfItemFromFile = 0;
+    bool fileExistCorrectlyFormatted = xml.Load(NAME_OF_USER_FILE);
+
+    if(fileExistCorrectlyFormatted) {
+        xml.FindElem();
+        xml.IntoElem();
+
+        while(xml.FindElem()) {
+            xml.IntoElem();
+
+            while(xml.FindElem()) {
+
+                switch(numberOfItemFromFile) {
+                case 0:
+                    user.setUserId(atoi(xml.GetData().c_str()));
+                    numberOfItemFromFile++;
+                    break;
+
+                case 1:
+                    user.setLogin(xml.GetData());
+                    numberOfItemFromFile++;
+                    break;
+
+                case 2:
+                    user.setPassword(xml.GetData());
+                    numberOfItemFromFile++;
+                    break;
+
+                case 3:
+                    user.setName(xml.GetData());
+                    numberOfItemFromFile++;
+                    break;
+
+                case 4:
+                    user.setSurname(xml.GetData());
+                    numberOfItemFromFile++;
+                    break;
+                }
+            }
+            users.push_back(user);
+            numberOfItemFromFile = 0;
+            xml.OutOfElem();
+        }
+        xml.OutOfElem();
+    }
+    return users;
+}

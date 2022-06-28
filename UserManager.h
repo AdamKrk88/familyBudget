@@ -22,7 +22,9 @@ bool checkIfLoginForNewUserExistInSystem(string login);
 
 
 public:
-    UserManager(string nameOfUserFile) : userFile(nameOfUserFile) {};
+    UserManager(string nameOfUserFile) : userFile(nameOfUserFile) {
+    users = userFile.loadAllUsersFromFileToVector();
+    };
     void registerUser();
     void printAllUsers();
 

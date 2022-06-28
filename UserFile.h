@@ -2,6 +2,7 @@
 #define USERFILE_H
 
 #include <iostream>
+#include <vector>
 
 #include "Markup.h"
 #include "User.h"
@@ -17,6 +18,7 @@ class UserFile {
 public:
     UserFile(string nameOfUserFile) : NAME_OF_USER_FILE(nameOfUserFile) {};
     void addUserToFile(User user);
+    vector<User> loadAllUsersFromFileToVector();
 
 
 };

@@ -7,11 +7,11 @@ int main()
 {
 
     UserManager userManager("Users.xml");
-    userManager.registerUser();
-    userManager.registerUser();
-    userManager.registerUser();
+    //userManager.registerUser();
+   // userManager.registerUser();
+   // userManager.registerUser();
 
-  //  userManager.printAllUsers();
+    userManager.printAllUsers();
 
 
 
