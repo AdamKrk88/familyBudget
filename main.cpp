@@ -10,8 +10,8 @@ int main()
     //userManager.registerUser();
    // userManager.registerUser();
    // userManager.registerUser();
-
-    userManager.printAllUsers();
+    userManager.logInUser();
+ //   userManager.printAllUsers();
 
 
 
