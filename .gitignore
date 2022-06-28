@@ -1,4 +1,7 @@
 bin/
 obj/
 plan/
-FamilyBudget.*
+FamilyBudget.cbp
+FamilyBudget.depend
+Users.xml
+FamilyBudget.layout
