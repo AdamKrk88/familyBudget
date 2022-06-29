@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Income.h"
+#include "DateMethods.h"
 
 using namespace std;
 

@@ -15,7 +15,9 @@ static string loadStringLineFromKeyboard();
 static string deleteSpaceBeforeAndAfterString(string stringToAdjust);
 static string convertFirstLetterOfOneStringToBeInUpperCaseRemainingPartInLowerCase(string text);
 static string convertFromIntToString(int number);
-
+static int convertFromStringToInt(string text);
+static bool checkIfProvidedStringContainsOnlyDigits(string dataToCheck);
+static bool checkIfReturnStatementWasProvided(string providedStatement);
 };
 
 
