@@ -113,3 +113,11 @@ void UserManager :: logInUser() {
     loggedUserId = 0;
     return;
 }
+
+
+bool UserManager :: checkIfUserIsLoggedIn() {
+    if (loggedUserId > 0)
+        return true;
+    else
+        return false;
+}
