@@ -17,6 +17,7 @@ class DateMethods {
     static bool checkIfDateIsValid(string dateToCheckInOneString);
     static vector<int> convertDateInStringToIntVector(string dateFormat);
     static bool checkIfYearIsLeap (int year);
+  //  static int calculateNumberOfDaysForProvidedMonth(int month, int year);
 
 public:
     static string getCurrentTimeFromSystem();

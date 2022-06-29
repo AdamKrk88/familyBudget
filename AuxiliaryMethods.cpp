@@ -84,3 +84,44 @@ bool AuxiliaryMethods :: checkIfReturnStatementWasProvided(string providedStatem
         else return false;
     } else return false;
 }
+
+
+int AuxiliaryMethods :: checkIfLineContainZeroOneOrMoreSigns(string text, char sign) {
+
+    size_t position = text.find(sign);
+
+    if(position != string :: npos) {
+        position = text.find(sign,position + 1);
+
+        if(position != string :: npos) {
+            return 2;
+        } else {
+            return 1;
+        }
+
+    } else {
+        return 0;
+    }
+}
+
+vector<int> AuxiliaryMethods :: calculateHowManyDotsOrCommasIsInTextLine(string text) {
+
+    vector<int> numberOfSigns(2);
+    numberOfSigns[0] = checkIfLineContainZeroOneOrMoreSigns(text, '.');
+    numberOfSigns[1] = checkIfLineContainZeroOneOrMoreSigns(text, ',');
+
+    return numberOfSigns;
+
+}
+
+
+string AuxiliaryMethods :: replaceCommaByDot(string textToAdjust) {
+
+
+    char sign = ',';
+    size_t position = textToAdjust.find(sign);
+    textToAdjust.replace(position,1,".");
+
+    return textToAdjust;
+}
+

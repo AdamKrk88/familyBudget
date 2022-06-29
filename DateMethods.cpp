@@ -42,6 +42,33 @@ vector<int> DateMethods :: convertDateInStringToIntVector(string dateFormat) {
     return dateIntFormat;
 }
 
+/*
+int DateMethods :: calculateNumberOfDaysForProvidedMonth(int month, int year) {
+
+    switch(month) {
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+        return 30;
+
+    case 2:
+        if(checkIfYearIsLeap(year))
+            return 29;
+        else
+            return 28;
+
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
+        return 31;
+    }
+}
+*/
 
 bool DateMethods :: checkIfYearIsLeap (int year) {
      if((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
@@ -83,26 +110,29 @@ bool DateMethods :: checkIfDateIsValid(string dateToCheckInOneString) {
 
     string currentDateInOneString = getCurrentTimeFromSystem();
     vector<int> currentDate = convertDateInStringToIntVector(currentDateInOneString);
-    const int MAX_VALID_YR = currentDate[0];
-    const int MIN_VALID_YR = 2000;
+    const int MAX_VALID_YEAR = currentDate[0];
+    const int MIN_VALID_YEAR = 2000;
+    const int MAX_VALID_MONTH = currentDate[1];
 
-    if (year > MAX_VALID_YR || year < MIN_VALID_YR)
+    if(year > MAX_VALID_YEAR || year < MIN_VALID_YEAR)
         return false;
-    if (month < 1 || month > 12)
+    if(month < 1 || month > 12)
         return false;
-    if (day < 1 || day > 31)
+    if(day < 1 || day > 31)
         return false;
 
-
-    if (month == 2) {
-        if (checkIfYearIsLeap(year))
+    if(month == 2) {
+        if(checkIfYearIsLeap(year))
             return (day <= 29);
         else
             return (day <= 28);
     }
 
-    if (month == 4 || month == 6 || month == 9 || month == 11)
+    if(month == 4 || month == 6 || month == 9 || month == 11)
         return (day <= 30);
+
+    if(month > MAX_VALID_MONTH && year == MAX_VALID_YEAR)
+        return false;
 
     return true;
 }
@@ -118,13 +148,14 @@ string DateMethods :: loadDateFromKeyboard() {
 
     while(true) {
         if(checkIfFormatOfDateIsCorrect(providedDateOrReturnStatement)) {
-            cout << "Format of date correct" << endl;
+            cout << endl << "Format of date correct" << endl;
 
             if(checkIfDateIsValid(providedDateOrReturnStatement)) {
                 cout << "Date is valid" << endl;
                 break;
             } else {
-                cout << "Date is not valid. Provide date or enter \"return\" to go back to User Menu: ";
+                cout << "Date is not valid" << endl << "Provide date between 2000-01-01 and last day of current month"
+                << endl << "Or enter \"return\" to go back to User Menu: ";
                 getline(cin, providedDateOrReturnStatement);
                 providedDateOrReturnStatement = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(providedDateOrReturnStatement);
                 if(AuxiliaryMethods :: checkIfReturnStatementWasProvided(providedDateOrReturnStatement)) {
@@ -133,7 +164,8 @@ string DateMethods :: loadDateFromKeyboard() {
                 }
             }
         } else {
-            cout << "Format of date is not correct. Please provide YYYY-MM-DD or enter \"return\" to go back to User Menu: ";
+            cout << endl << "Format of date is not correct."
+            << endl << "Please provide YYYY-MM-DD or enter \"return\" to go back to User Menu: ";
             getline(cin, providedDateOrReturnStatement);
             providedDateOrReturnStatement = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(providedDateOrReturnStatement);
             if(AuxiliaryMethods :: checkIfReturnStatementWasProvided(providedDateOrReturnStatement)) {

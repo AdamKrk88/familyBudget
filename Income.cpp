@@ -9,10 +9,10 @@ int Income :: getUserId() {
 string Income :: getDate() {
     return date;
 }
-string Income :: getItemDescription() {
-    return itemDescription;
+string Income :: getIncomeDescription() {
+    return incomeDescription;
 }
-double Income :: getAmount() {
+string Income :: getAmount() {
     return amount;
 }
 
@@ -28,10 +28,10 @@ void Income :: setDate(string newDate) {
     date = newDate;
 }
 
-void Income :: setItemDescription(string newItemDescription) {
-    itemDescription = newItemDescription;
+void Income :: setIncomeDescription(string newIncomeDescription) {
+    incomeDescription = newIncomeDescription;
 }
 
-void Income :: setAmount(double newAmount) {
+void Income :: setAmount(string newAmount) {
     amount = newAmount;
 }
