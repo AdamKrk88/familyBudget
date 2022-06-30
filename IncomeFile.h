@@ -6,6 +6,7 @@
 
 #include "AuxiliaryMethods.h"
 #include "Income.h"
+#include "DateMethods.h"
 #include "Markup.h"
 
 using namespace std;

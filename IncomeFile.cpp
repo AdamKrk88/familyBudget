@@ -16,7 +16,7 @@ void IncomeFile :: addIncomeToFile(Income income) {
     xml.IntoElem();
     xml.AddElem("IncomeId",AuxiliaryMethods :: convertFromIntToString(income.getIncomeId()));
     xml.AddElem("UserId",AuxiliaryMethods :: convertFromIntToString(income.getUserId()));
-    xml.AddElem("Date",income.getDate());
+    xml.AddElem("Date",DateMethods :: convertDateFromIntToStringInCorrectFormat(income.getDate()));
     xml.AddElem("Item",income.getIncomeDescription());
     xml.AddElem("Amount",income.getAmount());
 
@@ -60,7 +60,7 @@ vector<Income> IncomeFile :: loadAllIncomesForLoggedUser(int loggedUserId) {
                         break;
 
                     case 2:
-                        income.setDate(xml.GetData());
+                        income.setDate(DateMethods :: convertDateFromStringToInt(xml.GetData()));
                         numberOfItemFromFile++;
                         break;
 

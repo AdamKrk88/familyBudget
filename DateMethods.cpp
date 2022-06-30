@@ -178,3 +178,19 @@ string DateMethods :: loadDateFromKeyboard() {
     return providedDateOrReturnStatement;
 }
 
+
+int DateMethods :: convertDateFromStringToInt(string date) {
+
+    date = date.substr(0,4) + date.substr(5,2) + date.substr(8,2);
+    int dateConvertedToInt = AuxiliaryMethods :: convertFromStringToInt(date);
+    return dateConvertedToInt;
+}
+
+
+string DateMethods :: convertDateFromIntToStringInCorrectFormat(int dateAsNumber) {
+
+    string dateConvertedFromInt = AuxiliaryMethods :: convertFromIntToString(dateAsNumber);
+    dateConvertedFromInt = dateConvertedFromInt.substr(0,4) + '-' + dateConvertedFromInt.substr(4,2) + '-' + dateConvertedFromInt.substr(6,2);
+    return dateConvertedFromInt;
+}
+
