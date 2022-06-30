@@ -1,25 +1,25 @@
-#include "IncomeManager.h"
+#include "ExpenseManager.h"
 
-void IncomeManager :: addIncome() {
+void ExpenseManager :: addExpense() {
 
-    Income income;
+    Expense expense;
     string dateAsOfTodayOrPast = "";
     string dateProvidedByUserOrTakenFromSystem = "";
-    cout << "Provide date for your income - enter \"today\" or \"past\": ";
+    cout << "Provide date for your expense - enter \"today\" or \"past\": ";
     cin >> dateAsOfTodayOrPast;
     cin.sync();
 
     if (dateAsOfTodayOrPast == "today") {
         dateProvidedByUserOrTakenFromSystem = DateMethods :: getCurrentTimeFromSystem();
-        income = provideDataForIncome(dateProvidedByUserOrTakenFromSystem);
-        incomes.push_back(income);
-        incomeFile.addIncomeToFile(income);
+        expense = provideDataForExpense(dateProvidedByUserOrTakenFromSystem);
+        expenses.push_back(expense);
+        expenseFile.addExpenseToFile(expense);
     } else if(dateAsOfTodayOrPast == "past") {
         dateProvidedByUserOrTakenFromSystem = DateMethods :: loadDateFromKeyboard();
         if(dateProvidedByUserOrTakenFromSystem != "") {
-            income = provideDataForIncome(dateProvidedByUserOrTakenFromSystem);
-            incomes.push_back(income);
-            incomeFile.addIncomeToFile(income);
+            expense = provideDataForExpense(dateProvidedByUserOrTakenFromSystem);
+            expenses.push_back(expense);
+            expenseFile.addExpenseToFile(expense);
         }
     } else {
         cout << "Not correct. Return to User menu" << endl;
@@ -28,33 +28,33 @@ void IncomeManager :: addIncome() {
 }
 
 
-Income IncomeManager :: provideDataForIncome(string dateProvidedByUserOrTakenFromSystem) {
+Expense ExpenseManager :: provideDataForExpense(string dateProvidedByUserOrTakenFromSystem) {
 
-    Income income;
+    Expense expense;
 
-    income.setIncomeId(incomeFile.getLastIncomeId() + 1);
-    income.setUserId(2);
-    income.setDate(dateProvidedByUserOrTakenFromSystem);
+    expense.setExpenseId(expenseFile.getLastExpenseId() + 1);
+    expense.setUserId(2);
+    expense.setDate(dateProvidedByUserOrTakenFromSystem);
 
-    string incomeDescription;
-    cout << "Enter your income description: ";
-    getline(cin, incomeDescription);
-    incomeDescription = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(incomeDescription);
-    income.setIncomeDescription(incomeDescription);
+    string expenseDescription;
+    cout << "Enter your expense description: ";
+    getline(cin, expenseDescription);
+    expenseDescription = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(expenseDescription);
+    expense.setExpenseDescription(expenseDescription);
 
     string amount;
-    amount = loadIncomeAmountFromKeyboard();
-    income.setAmount(amount);
+    amount = loadExpenseAmountFromKeyboard();
+    expense.setAmount(amount);
 
-    return income;
+    return expense;
 
 }
 
-string IncomeManager :: loadIncomeAmountFromKeyboard() {
+string ExpenseManager :: loadExpenseAmountFromKeyboard() {
 
     string amount = "";
     vector<int> numberOfCommasOrDotsInAmount;
-    cout << "Enter income amount: ";
+    cout << "Enter expense amount: ";
     getline(cin, amount);
     amount = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(amount);
 
@@ -67,7 +67,7 @@ string IncomeManager :: loadIncomeAmountFromKeyboard() {
 
             break;
         } else {
-            cout << "Amount provided is not correct. Provide income amount: ";
+            cout << "Amount provided is not correct. Provide expense amount: ";
             getline(cin, amount);
             amount = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(amount);
         }
@@ -76,7 +76,7 @@ string IncomeManager :: loadIncomeAmountFromKeyboard() {
 }
 
 
-bool IncomeManager :: checkIfAmountFormatIsCorrect(string amount, vector<int> &numberOfCommasOrDotsInAmount) {
+bool ExpenseManager :: checkIfAmountFormatIsCorrect(string amount, vector<int> &numberOfCommasOrDotsInAmount) {
 
     int amountSize = amount.size();
     int numberOfDots = numberOfCommasOrDotsInAmount[0];
@@ -129,14 +129,14 @@ bool IncomeManager :: checkIfAmountFormatIsCorrect(string amount, vector<int> &n
 }
 
 
-void IncomeManager :: printAllIncomes() {
+void ExpenseManager :: printAllExpenses() {
 
-for(int i = 0; i < incomes.size(); i++) {
-    cout << incomes[i].getIncomeId() << endl;
-    cout << incomes[i].getUserId() << endl;
-    cout << incomes[i].getDate() << endl;
-    cout << incomes[i].getIncomeDescription() << endl;
-    cout << incomes[i].getAmount() << endl;
+for(int i = 0; i < expenses.size(); i++) {
+    cout << expenses[i].getExpenseId() << endl;
+    cout << expenses[i].getUserId() << endl;
+    cout << expenses[i].getDate() << endl;
+    cout << expenses[i].getExpenseDescription() << endl;
+    cout << expenses[i].getAmount() << endl;
 }
 }
 

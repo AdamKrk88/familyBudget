@@ -1,37 +1,37 @@
-#include "IncomeFile.h"
+#include "ExpenseFile.h"
 
 
-void IncomeFile :: addIncomeToFile(Income income) {
+void ExpenseFile :: addExpenseToFile(Expense expense) {
     CMarkup xml;
-    bool fileExistCorrectlyFormatted = xml.Load(NAME_OF_INCOME_FILE);
+    bool fileExistCorrectlyFormatted = xml.Load(NAME_OF_EXPENSE_FILE);
 
     if(!fileExistCorrectlyFormatted) {
         xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
-        xml.AddElem("Incomes");
+        xml.AddElem("Expenses");
     }
 
     xml.FindElem();
     xml.IntoElem();
-    xml.AddElem("Income");
+    xml.AddElem("Expense");
     xml.IntoElem();
-    xml.AddElem("IncomeId",AuxiliaryMethods :: convertFromIntToString(income.getIncomeId()));
-    xml.AddElem("UserId",AuxiliaryMethods :: convertFromIntToString(income.getUserId()));
-    xml.AddElem("Date",income.getDate());
-    xml.AddElem("Item",income.getIncomeDescription());
-    xml.AddElem("Amount",income.getAmount());
+    xml.AddElem("ExpenseId",AuxiliaryMethods :: convertFromIntToString(expense.getExpenseId()));
+    xml.AddElem("UserId",AuxiliaryMethods :: convertFromIntToString(expense.getUserId()));
+    xml.AddElem("Date",expense.getDate());
+    xml.AddElem("Item",expense.getExpenseDescription());
+    xml.AddElem("Amount",expense.getAmount());
 
-    xml.Save(NAME_OF_INCOME_FILE);
-    lastIncomeId++;
+    xml.Save(NAME_OF_EXPENSE_FILE);
+    lastExpenseId++;
 }
 
 
-vector<Income> IncomeFile :: loadAllIncomesForLoggedUser(int loggedUserId) {
+vector<Expense> ExpenseFile :: loadAllExpensesForLoggedUser(int loggedUserId) {
 
     CMarkup xml;
-    Income income;
-    vector<Income> incomes;
+    Expense expense;
+    vector<Expense> expenses;
     int numberOfItemFromFile = 0;
-    bool fileExistCorrectlyFormatted = xml.Load(NAME_OF_INCOME_FILE);
+    bool fileExistCorrectlyFormatted = xml.Load(NAME_OF_EXPENSE_FILE);
 
     if(fileExistCorrectlyFormatted) {
         xml.FindElem();
@@ -40,7 +40,7 @@ vector<Income> IncomeFile :: loadAllIncomesForLoggedUser(int loggedUserId) {
         while(xml.FindElem()) {
             xml.IntoElem();
             xml.FindElem();
-            lastIncomeId = atoi(xml.GetData().c_str());
+            lastExpenseId = atoi(xml.GetData().c_str());
             xml.FindElem();
 
             if(loggedUserId == atoi(xml.GetData().c_str())) {
@@ -50,33 +50,33 @@ vector<Income> IncomeFile :: loadAllIncomesForLoggedUser(int loggedUserId) {
 
                     switch(numberOfItemFromFile) {
                     case 0:
-                        income.setIncomeId(atoi(xml.GetData().c_str()));
+                        expense.setExpenseId(atoi(xml.GetData().c_str()));
                         numberOfItemFromFile++;
                         break;
 
                     case 1:
-                        income.setUserId(loggedUserId);
+                        expense.setUserId(loggedUserId);
                         numberOfItemFromFile++;
                         break;
 
                     case 2:
-                        income.setDate(xml.GetData());
+                        expense.setDate(xml.GetData());
                         numberOfItemFromFile++;
                         break;
 
                     case 3:
-                        income.setIncomeDescription(xml.GetData());
+                        expense.setExpenseDescription(xml.GetData());
                         numberOfItemFromFile++;
                         break;
 
                     case 4:
-                        income.setAmount(xml.GetData());
+                        expense.setAmount(xml.GetData());
                         numberOfItemFromFile++;
                         break;
                     }
                 }
 
-                incomes.push_back(income);
+                expenses.push_back(expense);
                 numberOfItemFromFile = 0;
                 xml.OutOfElem();
             }
@@ -87,10 +87,10 @@ vector<Income> IncomeFile :: loadAllIncomesForLoggedUser(int loggedUserId) {
         }
         xml.OutOfElem();
     }
-    return incomes;
+    return expenses;
 }
 
 
-int IncomeFile :: getLastIncomeId() {
-    return lastIncomeId;
+int ExpenseFile :: getLastExpenseId() {
+    return lastExpenseId;
 }
