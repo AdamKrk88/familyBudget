@@ -7,19 +7,23 @@
 #include "Income.h"
 #include "DateMethods.h"
 #include "AuxiliaryMethods.h"
+#include "IncomeFile.h"
 
 using namespace std;
 
 class IncomeManager {
 
 vector<Income> incomes;
+IncomeFile incomeFile;
 
-int loadIdForNewIncome();
 Income provideDataForIncome(string dateProvidedByUserOrTakenFromSystem);
 string loadIncomeAmountFromKeyboard();
 bool checkIfAmountFormatIsCorrect(string amount, vector<int> &numberOfCommasOrDotsInAmount);
 
 public:
+    IncomeManager(string nameOfIncomeFile) : incomeFile(nameOfIncomeFile) {
+    incomes = incomeFile.loadAllIncomesForLoggedUser(2);
+    };
     void addIncome();
     void printAllIncomes();
 

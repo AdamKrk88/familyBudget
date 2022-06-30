@@ -13,11 +13,13 @@ void IncomeManager :: addIncome() {
         dateProvidedByUserOrTakenFromSystem = DateMethods :: getCurrentTimeFromSystem();
         income = provideDataForIncome(dateProvidedByUserOrTakenFromSystem);
         incomes.push_back(income);
+        incomeFile.addIncomeToFile(income);
     } else if(dateAsOfTodayOrPast == "past") {
         dateProvidedByUserOrTakenFromSystem = DateMethods :: loadDateFromKeyboard();
         if(dateProvidedByUserOrTakenFromSystem != "") {
             income = provideDataForIncome(dateProvidedByUserOrTakenFromSystem);
             incomes.push_back(income);
+            incomeFile.addIncomeToFile(income);
         }
     } else {
         cout << "Not correct. Return to User menu" << endl;
@@ -26,20 +28,12 @@ void IncomeManager :: addIncome() {
 }
 
 
-int IncomeManager :: loadIdForNewIncome() {
-
-    if (incomes.empty())
-        return 1;
-    else
-        return incomes.back().getIncomeId() + 1;
-}
-
 Income IncomeManager :: provideDataForIncome(string dateProvidedByUserOrTakenFromSystem) {
 
     Income income;
 
-    income.setIncomeId(loadIdForNewIncome());
-    income.setUserId(1);
+    income.setIncomeId(incomeFile.getLastIncomeId() + 1);
+    income.setUserId(2);
     income.setDate(dateProvidedByUserOrTakenFromSystem);
 
     string incomeDescription;

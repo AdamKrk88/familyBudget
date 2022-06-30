@@ -6,10 +6,11 @@ using namespace std;
 
 int main()
 {
-    IncomeManager incomeManager;
+    IncomeManager incomeManager("Incomes.xml");
     incomeManager.addIncome();
-    incomeManager.addIncome();
-    incomeManager.addIncome();
+ //   incomeManager.addIncome();
+ //   incomeManager.addIncome();
+ //   incomeManager.addIncome();
     incomeManager.printAllIncomes();
 
   //  UserManager userManager("Users.xml");
