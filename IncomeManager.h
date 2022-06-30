@@ -26,6 +26,7 @@ public:
     };
     void addIncome();
     void printAllIncomes();
+    double printIncomesForLoggedInUserSortedByDate();
 
 };
 

@@ -34,7 +34,7 @@ Expense ExpenseManager :: provideDataForExpense(string dateProvidedByUserOrTaken
 
     expense.setExpenseId(expenseFile.getLastExpenseId() + 1);
     expense.setUserId(2);
-    expense.setDate(dateProvidedByUserOrTakenFromSystem);
+    expense.setDate(DateMethods :: convertDateFromStringToInt(dateProvidedByUserOrTakenFromSystem));
 
     string expenseDescription;
     cout << "Enter your expense description: ";

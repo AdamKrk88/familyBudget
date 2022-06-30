@@ -16,7 +16,7 @@ void ExpenseFile :: addExpenseToFile(Expense expense) {
     xml.IntoElem();
     xml.AddElem("ExpenseId",AuxiliaryMethods :: convertFromIntToString(expense.getExpenseId()));
     xml.AddElem("UserId",AuxiliaryMethods :: convertFromIntToString(expense.getUserId()));
-    xml.AddElem("Date",expense.getDate());
+    xml.AddElem("Date",DateMethods :: convertDateFromIntToStringInCorrectFormat(expense.getDate()));
     xml.AddElem("Item",expense.getExpenseDescription());
     xml.AddElem("Amount",expense.getAmount());
 
@@ -60,7 +60,7 @@ vector<Expense> ExpenseFile :: loadAllExpensesForLoggedUser(int loggedUserId) {
                         break;
 
                     case 2:
-                        expense.setDate(xml.GetData());
+                        expense.setDate(DateMethods :: convertDateFromStringToInt(xml.GetData()));
                         numberOfItemFromFile++;
                         break;
 

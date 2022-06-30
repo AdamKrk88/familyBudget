@@ -22,6 +22,8 @@ class DateMethods {
 public:
     static string getCurrentTimeFromSystem();
     static string loadDateFromKeyboard();
+    static int convertDateFromStringToInt(string date);
+    static string convertDateFromIntToStringInCorrectFormat(int dateAsNumber);
 
 };
 

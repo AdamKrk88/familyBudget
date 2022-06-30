@@ -34,7 +34,7 @@ Income IncomeManager :: provideDataForIncome(string dateProvidedByUserOrTakenFro
 
     income.setIncomeId(incomeFile.getLastIncomeId() + 1);
     income.setUserId(2);
-    income.setDate(dateProvidedByUserOrTakenFromSystem);
+    income.setDate(DateMethods :: convertDateFromStringToInt(dateProvidedByUserOrTakenFromSystem));
 
     string incomeDescription;
     cout << "Enter your income description: ";
