@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <iomanip>
 
 #include "Income.h"
 #include "DateMethods.h"
@@ -26,7 +27,8 @@ public:
     };
     void addIncome();
     void printAllIncomes();
-    double printIncomesForLoggedInUserSortedByDate();
+    void printIncomesForLoggedInUserSortedByDate();
+ //   void extractIncomesAsOfProvidedPeriod();
 
 };
 

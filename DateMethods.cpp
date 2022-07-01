@@ -142,7 +142,6 @@ string DateMethods :: loadDateFromKeyboard() {
 
     string providedDateOrReturnStatement = "";
 
-    cout << "Enter date in format YYYY-MM-DD: ";
     getline(cin, providedDateOrReturnStatement);
     providedDateOrReturnStatement = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(providedDateOrReturnStatement);
 

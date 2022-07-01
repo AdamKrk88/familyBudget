@@ -15,6 +15,7 @@ void IncomeManager :: addIncome() {
         incomes.push_back(income);
         incomeFile.addIncomeToFile(income);
     } else if(dateAsOfTodayOrPast == "past") {
+        cout << "Enter date in format YYYY-MM-DD: ";
         dateProvidedByUserOrTakenFromSystem = DateMethods :: loadDateFromKeyboard();
         if(dateProvidedByUserOrTakenFromSystem != "") {
             income = provideDataForIncome(dateProvidedByUserOrTakenFromSystem);
@@ -131,13 +132,69 @@ bool IncomeManager :: checkIfAmountFormatIsCorrect(string amount, vector<int> &n
 
 void IncomeManager :: printAllIncomes() {
 
-for(int i = 0; i < incomes.size(); i++) {
-    cout << incomes[i].getIncomeId() << endl;
-    cout << incomes[i].getUserId() << endl;
-    cout << incomes[i].getDate() << endl;
-    cout << incomes[i].getIncomeDescription() << endl;
-    cout << incomes[i].getAmount() << endl;
-}
+    for(int i = 0; i < incomes.size(); i++) {
+        cout << incomes[i].getIncomeId() << endl;
+        cout << incomes[i].getUserId() << endl;
+        cout << incomes[i].getDate() << endl;
+        cout << incomes[i].getIncomeDescription() << endl;
+        cout << incomes[i].getAmount() << endl;
+    }
 }
 
 
+void IncomeManager :: printIncomesForLoggedInUserSortedByDate() {
+
+    string firstColumnName = "Income date";
+    string secondColumnName = "Description";
+    string thirdColumnName = "Amount";
+
+    int firstColumnNameWidth = firstColumnName.size();
+    int secondColumnNameWidth = secondColumnName.size();
+    int thirdColumnNameWidth = thirdColumnName.size();
+    int separatorWidth = 1;
+
+    string separator = "|";
+    string fixedSpaceInFirstandThirdColumns = string(4,' ');
+    string fixedSpaceInSecondColumn = string(15,' ');
+    int lengthOfFixedSpaceInFirstandThirdColumns = fixedSpaceInFirstandThirdColumns.size();
+    int lengthOfFixedSpaceInSecondColumn = fixedSpaceInSecondColumn.size();
+
+    int totalWidth = firstColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns * 2 + secondColumnNameWidth + lengthOfFixedSpaceInSecondColumn * 2 + thirdColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns * 2 + 2*separatorWidth;
+    string line = separator + string(totalWidth,'-') + separator;
+
+    cout << line;
+    cout << '\n';
+    cout << separator << fixedSpaceInFirstandThirdColumns  << firstColumnName << fixedSpaceInFirstandThirdColumns
+         << separator << fixedSpaceInSecondColumn  << secondColumnName << fixedSpaceInSecondColumn
+         << separator << fixedSpaceInFirstandThirdColumns  << thirdColumnName << fixedSpaceInFirstandThirdColumns
+         << separator;
+    cout << '\n' << line;
+
+    if(incomes.empty()) {
+        cout << endl << separator << setw(14) << "No incomes" << string(line.size() - 14 - 2*separatorWidth,' ') << separator;
+        cout << endl << line;
+    }
+
+    else {
+        sort(incomes.begin(),incomes.end());
+        int numberOfIncomesRegistered = incomes.size();
+
+        for(int i = 0; i < numberOfIncomesRegistered; i++) {
+            cout << endl << separator << " " << left << setw(firstColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns*2 - 2) << DateMethods :: convertDateFromIntToStringInCorrectFormat(incomes[i].getDate()) << " "
+                 << separator << " " << left << setw(secondColumnNameWidth + lengthOfFixedSpaceInSecondColumn*2 -2) << incomes[i].getIncomeDescription() << " "
+                 << separator << " " << left << setw(thirdColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns*2 - 2) << incomes[i].getAmount() << " "
+                 << separator;
+        }
+        cout << endl << line;
+    }
+}
+
+/*
+void IncomeManager :: extractIncomesAsOfProvidedPeriod() {
+
+     cout << "Provide period to display incomes and expenses balance" << endl;
+     cout << "Provide start date: ";
+     string startDate = DateMethods :: loadDateFromKeyboard();
+
+}
+*/
