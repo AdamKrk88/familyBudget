@@ -142,7 +142,7 @@ void IncomeManager :: printAllIncomes() {
 }
 
 
-void IncomeManager :: printIncomesForLoggedInUserSortedByDate() {
+void IncomeManager :: printIncomesListedInProvidedDataForLoggedInUser(vector<Income> &incomesForGivenPeriod) {
 
     string firstColumnName = "Income date";
     string secondColumnName = "Description";
@@ -170,31 +170,107 @@ void IncomeManager :: printIncomesForLoggedInUserSortedByDate() {
          << separator;
     cout << '\n' << line;
 
-    if(incomes.empty()) {
+    if(incomesForGivenPeriod.empty()) {
         cout << endl << separator << setw(14) << "No incomes" << string(line.size() - 14 - 2*separatorWidth,' ') << separator;
         cout << endl << line;
     }
 
     else {
-        sort(incomes.begin(),incomes.end());
-        int numberOfIncomesRegistered = incomes.size();
+        int numberOfIncomesRegistered = incomesForGivenPeriod.size();
 
         for(int i = 0; i < numberOfIncomesRegistered; i++) {
-            cout << endl << separator << " " << left << setw(firstColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns*2 - 2) << DateMethods :: convertDateFromIntToStringInCorrectFormat(incomes[i].getDate()) << " "
-                 << separator << " " << left << setw(secondColumnNameWidth + lengthOfFixedSpaceInSecondColumn*2 -2) << incomes[i].getIncomeDescription() << " "
-                 << separator << " " << left << setw(thirdColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns*2 - 2) << incomes[i].getAmount() << " "
+            cout << endl << separator << " " << left << setw(firstColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns*2 - 2) << DateMethods :: convertDateFromIntToStringInCorrectFormat(incomesForGivenPeriod[i].getDate()) << " "
+                 << separator << " " << left << setw(secondColumnNameWidth + lengthOfFixedSpaceInSecondColumn*2 -2) << incomesForGivenPeriod[i].getIncomeDescription() << " "
+                 << separator << " " << left << setw(thirdColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns*2 - 2) << incomesForGivenPeriod[i].getAmount() << " "
                  << separator;
         }
         cout << endl << line;
     }
 }
 
-/*
-void IncomeManager :: extractIncomesAsOfProvidedPeriod() {
 
-     cout << "Provide period to display incomes and expenses balance" << endl;
-     cout << "Provide start date: ";
-     string startDate = DateMethods :: loadDateFromKeyboard();
+void IncomeManager :: printIncomeBalanceForProvidedPeriod() {
 
+    string startDate;
+    string endDate;
+    int startDateConvertedToIntFormat = 0;
+    int endDateConvertedToIntFormat = 0;
+
+    cout << "Provide period to display incomes and expenses balance" << endl;
+
+    while(true) {
+        cout << "Provide start date: ";
+        startDate = DateMethods :: loadDateFromKeyboard();
+
+        if(startDate != "") {
+            cout << "Provide end date: ";
+            endDate = DateMethods :: loadDateFromKeyboard();
+
+            if(endDate != "") {
+                startDateConvertedToIntFormat = DateMethods :: convertDateFromStringToInt(startDate);
+                endDateConvertedToIntFormat = DateMethods :: convertDateFromStringToInt(endDate);
+
+                if(startDateConvertedToIntFormat <= endDateConvertedToIntFormat) {
+                    vector<Income> incomesForGivenPeriod = createSortedVectorOfIncomesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+                    printIncomesListedInProvidedDataForLoggedInUser(incomesForGivenPeriod);
+                    break;
+                }
+
+                else {
+                    cout << "Start date cannot be later than end date. Try once again" << endl;
+                }
+            }
+        }
+    }
 }
-*/
+
+
+vector<Income> IncomeManager :: createSortedVectorOfIncomesForGivenPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat) {
+
+    vector<Income> incomesForGivenPeriod = incomes;
+    int lengthOfIncomesForGivenPeriodVector = incomesForGivenPeriod.size();
+    int indexNumber = 0;
+
+    if(!incomesForGivenPeriod.empty()) {
+        sort(incomesForGivenPeriod.begin(), incomesForGivenPeriod.end());
+
+        while(incomesForGivenPeriod[indexNumber].getDate() < startDateConvertedToIntFormat) {
+            indexNumber++;
+
+            if(indexNumber == lengthOfIncomesForGivenPeriodVector) {
+                break;
+            }
+        }
+
+        if(indexNumber == 1) {
+            incomesForGivenPeriod.erase(incomesForGivenPeriod.begin());
+        } else if(indexNumber > 1) {
+            incomesForGivenPeriod.erase(incomesForGivenPeriod.begin(),incomesForGivenPeriod.begin() + indexNumber);
+        }
+        indexNumber = 0;
+        lengthOfIncomesForGivenPeriodVector = incomesForGivenPeriod.size();
+    }
+
+    if(!incomesForGivenPeriod.empty()) {
+        while(incomesForGivenPeriod[indexNumber].getDate() <= endDateConvertedToIntFormat) {
+            indexNumber++;
+
+            if(indexNumber == lengthOfIncomesForGivenPeriodVector) {
+                break;
+            }
+        }
+
+        if(lengthOfIncomesForGivenPeriodVector - indexNumber != 0) {
+            while(incomesForGivenPeriod[indexNumber].getDate() > endDateConvertedToIntFormat) {
+                incomesForGivenPeriod.erase(incomesForGivenPeriod.begin() + indexNumber);
+                lengthOfIncomesForGivenPeriodVector = incomesForGivenPeriod.size();
+                if(lengthOfIncomesForGivenPeriodVector - indexNumber == 0) {
+                    break;
+                }
+            }
+        }
+    }
+
+    return incomesForGivenPeriod;
+}
+

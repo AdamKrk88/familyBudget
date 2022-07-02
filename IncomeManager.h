@@ -20,6 +20,8 @@ IncomeFile incomeFile;
 Income provideDataForIncome(string dateProvidedByUserOrTakenFromSystem);
 string loadIncomeAmountFromKeyboard();
 bool checkIfAmountFormatIsCorrect(string amount, vector<int> &numberOfCommasOrDotsInAmount);
+void printIncomesListedInProvidedDataForLoggedInUser(vector<Income> &incomesForGivenPeriod);
+vector<Income> createSortedVectorOfIncomesForGivenPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat);
 
 public:
     IncomeManager(string nameOfIncomeFile) : incomeFile(nameOfIncomeFile) {
@@ -27,8 +29,7 @@ public:
     };
     void addIncome();
     void printAllIncomes();
-    void printIncomesForLoggedInUserSortedByDate();
- //   void extractIncomesAsOfProvidedPeriod();
+    void printIncomeBalanceForProvidedPeriod();
 
 };
 

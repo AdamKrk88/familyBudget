@@ -20,8 +20,8 @@ int main()
  //   incomeManager.addIncome();
  //   incomeManager.addIncome();
   //  incomeManager.printAllIncomes();
-  incomeManager.printIncomesForLoggedInUserSortedByDate();
- //   incomeManager.extractIncomesAsOfProvidedPeriod();
+ // incomeManager.printIncomesForLoggedInUserSortedByDate();
+    incomeManager.printIncomeBalanceForProvidedPeriod();
   //  UserManager userManager("Users.xml");
     //userManager.registerUser();
    // userManager.registerUser();
