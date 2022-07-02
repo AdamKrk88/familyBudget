@@ -42,7 +42,7 @@ vector<int> DateMethods :: convertDateInStringToIntVector(string dateFormat) {
     return dateIntFormat;
 }
 
-/*
+
 int DateMethods :: calculateNumberOfDaysForProvidedMonth(int month, int year) {
 
     switch(month) {
@@ -68,7 +68,7 @@ int DateMethods :: calculateNumberOfDaysForProvidedMonth(int month, int year) {
         return 31;
     }
 }
-*/
+
 
 bool DateMethods :: checkIfYearIsLeap (int year) {
      if((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))

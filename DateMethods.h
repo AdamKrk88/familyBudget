@@ -12,18 +12,20 @@ using namespace std;
 
 class DateMethods {
 
-    static string convertMonthOrDayToProperFormat(int monthOrDay);
+ //   static string convertMonthOrDayToProperFormat(int monthOrDay);
     static bool checkIfFormatOfDateIsCorrect(string providedDate);
     static bool checkIfDateIsValid(string dateToCheckInOneString);
-    static vector<int> convertDateInStringToIntVector(string dateFormat);
+//    static vector<int> convertDateInStringToIntVector(string dateFormat);
     static bool checkIfYearIsLeap (int year);
-  //  static int calculateNumberOfDaysForProvidedMonth(int month, int year);
 
 public:
     static string getCurrentTimeFromSystem();
     static string loadDateFromKeyboard();
     static int convertDateFromStringToInt(string date);
     static string convertDateFromIntToStringInCorrectFormat(int dateAsNumber);
+    static int calculateNumberOfDaysForProvidedMonth(int month, int year);
+    static vector<int> convertDateInStringToIntVector(string dateFormat);
+    static string convertMonthOrDayToProperFormat(int monthOrDay);
 
 };
 

@@ -274,5 +274,53 @@ vector<Expense> ExpenseManager :: createSortedVectorOfExpensesForGivenPeriod(int
 }
 
 
+void ExpenseManager :: printExpenseBalanceForCurrentMonth() {
+
+    vector<int> currentDate = DateMethods :: convertDateInStringToIntVector(DateMethods :: getCurrentTimeFromSystem());
+    int numberOfDaysForCurrentMonth = DateMethods :: calculateNumberOfDaysForProvidedMonth(currentDate[1], currentDate[0]);
+
+    string startDate = AuxiliaryMethods :: convertFromIntToString(currentDate[0]) + DateMethods :: convertMonthOrDayToProperFormat(currentDate[1]) + "01";
+    string endDate = AuxiliaryMethods :: convertFromIntToString(currentDate[0]) + DateMethods :: convertMonthOrDayToProperFormat(currentDate[1]) + AuxiliaryMethods :: convertFromIntToString(numberOfDaysForCurrentMonth);
+
+    int startDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(startDate);
+    int endDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(endDate);
+
+    vector<Expense> expensesForGivenPeriod = createSortedVectorOfExpensesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+    printExpensesListedInProvidedDataForLoggedInUser(expensesForGivenPeriod);
+}
+
+
+void ExpenseManager :: printExpenseBalanceForPreviousMonth() {
+
+    vector<int> currentDate = DateMethods :: convertDateInStringToIntVector(DateMethods :: getCurrentTimeFromSystem());
+
+    int previousMonth = 0;
+    int year = 0;
+
+    if(currentDate[1] != 1) {
+        previousMonth = currentDate[1] - 1;
+        year = currentDate[0];
+    }
+
+    else {
+        previousMonth = 12;
+        year = currentDate[0] - 1;
+    }
+
+    int numberOfDaysForPreviousMonth = DateMethods :: calculateNumberOfDaysForProvidedMonth(previousMonth, year);
+
+    string startDate = AuxiliaryMethods :: convertFromIntToString(year) + DateMethods :: convertMonthOrDayToProperFormat(previousMonth) + "01";
+    string endDate = AuxiliaryMethods :: convertFromIntToString(year) + DateMethods :: convertMonthOrDayToProperFormat(previousMonth) + AuxiliaryMethods :: convertFromIntToString(numberOfDaysForPreviousMonth);
+
+    int startDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(startDate);
+    int endDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(endDate);
+
+    vector<Expense> expensesForGivenPeriod = createSortedVectorOfExpensesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+    printExpensesListedInProvidedDataForLoggedInUser(expensesForGivenPeriod);
+}
+
+
+
+
 
 

@@ -7,14 +7,16 @@ using namespace std;
 
 int main()
 {
- //  IncomeManager incomeManager("Incomes.xml");
+  // IncomeManager incomeManager("Incomes.xml");
 
     ExpenseManager expenseManager("Expenses.xml");
   //  expenseManager.addExpense();
   //  expenseManager.addExpense();
   //  expenseManager.printAllExpenses();
-    expenseManager.printExpenseBalanceForProvidedPeriod();
+  //  expenseManager.printExpenseBalanceForProvidedPeriod();
+      expenseManager.printExpenseBalanceForPreviousMonth();
 
+   // incomeManager.printIncomeBalanceForPreviousMonth();
  //   incomeManager.addIncome();
  //   incomeManager.addIncome();
  //   incomeManager.addIncome();
