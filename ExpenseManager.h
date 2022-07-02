@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <iomanip>
 
 #include "Expense.h"
 #include "DateMethods.h"
@@ -20,6 +21,8 @@ ExpenseFile expenseFile;
 Expense provideDataForExpense(string dateProvidedByUserOrTakenFromSystem);
 string loadExpenseAmountFromKeyboard();
 bool checkIfAmountFormatIsCorrect(string amount, vector<int> &numberOfCommasOrDotsInAmount);
+vector<Expense> createSortedVectorOfExpensesForGivenPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat);
+void printExpensesListedInProvidedDataForLoggedInUser(vector<Expense> &expensesForGivenPeriod);
 
 public:
     ExpenseManager(string nameOfExpenseFile) : expenseFile(nameOfExpenseFile) {
@@ -27,6 +30,7 @@ public:
     };
     void addExpense();
     void printAllExpenses();
+    void printExpenseBalanceForProvidedPeriod();
 };
 
 

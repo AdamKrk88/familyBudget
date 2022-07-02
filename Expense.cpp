@@ -36,3 +36,8 @@ void Expense :: setExpenseDescription(string newExpenseDescription) {
 void Expense :: setAmount(string newAmount) {
     amount = newAmount;
 }
+
+
+bool Expense :: operator < (const Expense &expense) const {
+    return (this -> date < expense.date);
+}

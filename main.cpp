@@ -7,13 +7,13 @@ using namespace std;
 
 int main()
 {
-   IncomeManager incomeManager("Incomes.xml");
+ //  IncomeManager incomeManager("Incomes.xml");
 
-   // ExpenseManager expenseManager("Expenses.xml");
+    ExpenseManager expenseManager("Expenses.xml");
   //  expenseManager.addExpense();
   //  expenseManager.addExpense();
   //  expenseManager.printAllExpenses();
-
+    expenseManager.printExpenseBalanceForProvidedPeriod();
 
  //   incomeManager.addIncome();
  //   incomeManager.addIncome();
@@ -21,7 +21,7 @@ int main()
  //   incomeManager.addIncome();
   //  incomeManager.printAllIncomes();
  // incomeManager.printIncomesForLoggedInUserSortedByDate();
-    incomeManager.printIncomeBalanceForProvidedPeriod();
+ //   incomeManager.printIncomeBalanceForProvidedPeriod();
   //  UserManager userManager("Users.xml");
     //userManager.registerUser();
    // userManager.registerUser();
