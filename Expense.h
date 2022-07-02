@@ -27,6 +27,7 @@ public:
     void setExpenseDescription(string newExpenseDescription);
     void setAmount(string newAmount);
 
+    bool operator < (const Expense &expense) const;
 };
 
 

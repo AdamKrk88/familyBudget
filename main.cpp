@@ -7,20 +7,23 @@ using namespace std;
 
 int main()
 {
- //   IncomeManager incomeManager("Incomes.xml");
+  // IncomeManager incomeManager("Incomes.xml");
 
     ExpenseManager expenseManager("Expenses.xml");
   //  expenseManager.addExpense();
   //  expenseManager.addExpense();
-    expenseManager.printAllExpenses();
+  //  expenseManager.printAllExpenses();
+  //  expenseManager.printExpenseBalanceForProvidedPeriod();
+      expenseManager.printExpenseBalanceForPreviousMonth();
 
-
-  //  incomeManager.addIncome();
-  //  incomeManager.addIncome();
+   // incomeManager.printIncomeBalanceForPreviousMonth();
+ //   incomeManager.addIncome();
+ //   incomeManager.addIncome();
  //   incomeManager.addIncome();
  //   incomeManager.addIncome();
   //  incomeManager.printAllIncomes();
-
+ // incomeManager.printIncomesForLoggedInUserSortedByDate();
+ //   incomeManager.printIncomeBalanceForProvidedPeriod();
   //  UserManager userManager("Users.xml");
     //userManager.registerUser();
    // userManager.registerUser();

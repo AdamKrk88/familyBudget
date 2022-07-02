@@ -42,7 +42,7 @@ vector<int> DateMethods :: convertDateInStringToIntVector(string dateFormat) {
     return dateIntFormat;
 }
 
-/*
+
 int DateMethods :: calculateNumberOfDaysForProvidedMonth(int month, int year) {
 
     switch(month) {
@@ -68,7 +68,7 @@ int DateMethods :: calculateNumberOfDaysForProvidedMonth(int month, int year) {
         return 31;
     }
 }
-*/
+
 
 bool DateMethods :: checkIfYearIsLeap (int year) {
      if((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
@@ -142,16 +142,15 @@ string DateMethods :: loadDateFromKeyboard() {
 
     string providedDateOrReturnStatement = "";
 
-    cout << "Enter date in format YYYY-MM-DD: ";
     getline(cin, providedDateOrReturnStatement);
     providedDateOrReturnStatement = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(providedDateOrReturnStatement);
 
     while(true) {
         if(checkIfFormatOfDateIsCorrect(providedDateOrReturnStatement)) {
-            cout << endl << "Format of date correct" << endl;
+           // cout << endl << "Format of date correct" << endl;
 
             if(checkIfDateIsValid(providedDateOrReturnStatement)) {
-                cout << "Date is valid" << endl;
+             //   cout << "Date is valid" << endl;
                 break;
             } else {
                 cout << "Date is not valid" << endl << "Provide date between 2000-01-01 and last day of current month"

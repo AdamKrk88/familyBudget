@@ -25,6 +25,8 @@ public:
     void setDate(int newDate);
     void setIncomeDescription(string newIncomeDescription);
     void setAmount(string newAmount);
+
+    bool operator < (const Income &income) const;
 };
 
 

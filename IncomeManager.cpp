@@ -15,6 +15,7 @@ void IncomeManager :: addIncome() {
         incomes.push_back(income);
         incomeFile.addIncomeToFile(income);
     } else if(dateAsOfTodayOrPast == "past") {
+        cout << "Enter date in format YYYY-MM-DD: ";
         dateProvidedByUserOrTakenFromSystem = DateMethods :: loadDateFromKeyboard();
         if(dateProvidedByUserOrTakenFromSystem != "") {
             income = provideDataForIncome(dateProvidedByUserOrTakenFromSystem);
@@ -131,13 +132,191 @@ bool IncomeManager :: checkIfAmountFormatIsCorrect(string amount, vector<int> &n
 
 void IncomeManager :: printAllIncomes() {
 
-for(int i = 0; i < incomes.size(); i++) {
-    cout << incomes[i].getIncomeId() << endl;
-    cout << incomes[i].getUserId() << endl;
-    cout << incomes[i].getDate() << endl;
-    cout << incomes[i].getIncomeDescription() << endl;
-    cout << incomes[i].getAmount() << endl;
-}
+    for(int i = 0; i < incomes.size(); i++) {
+        cout << incomes[i].getIncomeId() << endl;
+        cout << incomes[i].getUserId() << endl;
+        cout << incomes[i].getDate() << endl;
+        cout << incomes[i].getIncomeDescription() << endl;
+        cout << incomes[i].getAmount() << endl;
+    }
 }
 
+
+void IncomeManager :: printIncomesListedInProvidedDataForLoggedInUser(vector<Income> &incomesForGivenPeriod) {
+
+    string firstColumnName = "Income date";
+    string secondColumnName = "Description";
+    string thirdColumnName = "Amount";
+
+    int firstColumnNameWidth = firstColumnName.size();
+    int secondColumnNameWidth = secondColumnName.size();
+    int thirdColumnNameWidth = thirdColumnName.size();
+    int separatorWidth = 1;
+
+    string separator = "|";
+    string fixedSpaceInFirstandThirdColumns = string(4,' ');
+    string fixedSpaceInSecondColumn = string(15,' ');
+    int lengthOfFixedSpaceInFirstandThirdColumns = fixedSpaceInFirstandThirdColumns.size();
+    int lengthOfFixedSpaceInSecondColumn = fixedSpaceInSecondColumn.size();
+
+    int totalWidth = firstColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns * 2 + secondColumnNameWidth + lengthOfFixedSpaceInSecondColumn * 2 + thirdColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns * 2 + 2*separatorWidth;
+    string line = separator + string(totalWidth,'-') + separator;
+
+    cout << line;
+    cout << '\n';
+    cout << separator << fixedSpaceInFirstandThirdColumns  << firstColumnName << fixedSpaceInFirstandThirdColumns
+         << separator << fixedSpaceInSecondColumn  << secondColumnName << fixedSpaceInSecondColumn
+         << separator << fixedSpaceInFirstandThirdColumns  << thirdColumnName << fixedSpaceInFirstandThirdColumns
+         << separator;
+    cout << '\n' << line;
+
+    if(incomesForGivenPeriod.empty()) {
+        cout << endl << separator << setw(14) << "No incomes" << string(line.size() - 14 - 2*separatorWidth,' ') << separator;
+        cout << endl << line;
+    }
+
+    else {
+        int numberOfIncomesRegistered = incomesForGivenPeriod.size();
+
+        for(int i = 0; i < numberOfIncomesRegistered; i++) {
+            cout << endl << separator << " " << left << setw(firstColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns*2 - 2) << DateMethods :: convertDateFromIntToStringInCorrectFormat(incomesForGivenPeriod[i].getDate()) << " "
+                 << separator << " " << left << setw(secondColumnNameWidth + lengthOfFixedSpaceInSecondColumn*2 -2) << incomesForGivenPeriod[i].getIncomeDescription() << " "
+                 << separator << " " << left << setw(thirdColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns*2 - 2) << incomesForGivenPeriod[i].getAmount() << " "
+                 << separator;
+        }
+        cout << endl << line;
+    }
+}
+
+
+void IncomeManager :: printIncomeBalanceForProvidedPeriod() {
+
+    string startDate;
+    string endDate;
+    int startDateConvertedToIntFormat = 0;
+    int endDateConvertedToIntFormat = 0;
+
+    cout << "Provide period to display incomes and expenses balance" << endl;
+
+    while(true) {
+        cout << "Provide start date: ";
+        startDate = DateMethods :: loadDateFromKeyboard();
+
+        if(startDate != "") {
+            cout << "Provide end date: ";
+            endDate = DateMethods :: loadDateFromKeyboard();
+
+            if(endDate != "") {
+                startDateConvertedToIntFormat = DateMethods :: convertDateFromStringToInt(startDate);
+                endDateConvertedToIntFormat = DateMethods :: convertDateFromStringToInt(endDate);
+
+                if(startDateConvertedToIntFormat <= endDateConvertedToIntFormat) {
+                    vector<Income> incomesForGivenPeriod = createSortedVectorOfIncomesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+                    printIncomesListedInProvidedDataForLoggedInUser(incomesForGivenPeriod);
+                    break;
+                }
+
+                else {
+                    cout << "Start date cannot be later than end date. Try once again" << endl;
+                }
+            }
+        }
+    }
+}
+
+
+vector<Income> IncomeManager :: createSortedVectorOfIncomesForGivenPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat) {
+
+    vector<Income> incomesForGivenPeriod = incomes;
+    int lengthOfIncomesForGivenPeriodVector = incomesForGivenPeriod.size();
+    int indexNumber = 0;
+
+    if(!incomesForGivenPeriod.empty()) {
+        sort(incomesForGivenPeriod.begin(), incomesForGivenPeriod.end());
+
+        while(incomesForGivenPeriod[indexNumber].getDate() < startDateConvertedToIntFormat) {
+            indexNumber++;
+
+            if(indexNumber == lengthOfIncomesForGivenPeriodVector) {
+                break;
+            }
+        }
+
+        if(indexNumber == 1) {
+            incomesForGivenPeriod.erase(incomesForGivenPeriod.begin());
+        } else if(indexNumber > 1) {
+            incomesForGivenPeriod.erase(incomesForGivenPeriod.begin(),incomesForGivenPeriod.begin() + indexNumber);
+        }
+        indexNumber = 0;
+        lengthOfIncomesForGivenPeriodVector = incomesForGivenPeriod.size();
+    }
+
+    if(!incomesForGivenPeriod.empty()) {
+        while(incomesForGivenPeriod[indexNumber].getDate() <= endDateConvertedToIntFormat) {
+            indexNumber++;
+
+            if(indexNumber == lengthOfIncomesForGivenPeriodVector) {
+                break;
+            }
+        }
+
+        if(lengthOfIncomesForGivenPeriodVector - indexNumber != 0) {
+            while(incomesForGivenPeriod[indexNumber].getDate() > endDateConvertedToIntFormat) {
+                incomesForGivenPeriod.erase(incomesForGivenPeriod.begin() + indexNumber);
+                lengthOfIncomesForGivenPeriodVector = incomesForGivenPeriod.size();
+                if(lengthOfIncomesForGivenPeriodVector - indexNumber == 0) {
+                    break;
+                }
+            }
+        }
+    }
+
+    return incomesForGivenPeriod;
+}
+
+
+void IncomeManager :: printIncomeBalanceForCurrentMonth() {
+
+    vector<int> currentDate = DateMethods :: convertDateInStringToIntVector(DateMethods :: getCurrentTimeFromSystem());
+    int numberOfDaysForCurrentMonth = DateMethods :: calculateNumberOfDaysForProvidedMonth(currentDate[1], currentDate[0]);
+
+    string startDate = AuxiliaryMethods :: convertFromIntToString(currentDate[0]) + DateMethods :: convertMonthOrDayToProperFormat(currentDate[1]) + "01";
+    string endDate = AuxiliaryMethods :: convertFromIntToString(currentDate[0]) + DateMethods :: convertMonthOrDayToProperFormat(currentDate[1]) + AuxiliaryMethods :: convertFromIntToString(numberOfDaysForCurrentMonth);
+
+    int startDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(startDate);
+    int endDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(endDate);
+
+    vector<Income> incomesForGivenPeriod = createSortedVectorOfIncomesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+    printIncomesListedInProvidedDataForLoggedInUser(incomesForGivenPeriod);
+}
+
+
+void IncomeManager :: printIncomeBalanceForPreviousMonth() {
+
+    vector<int> currentDate = DateMethods :: convertDateInStringToIntVector(DateMethods :: getCurrentTimeFromSystem());
+
+    int previousMonth = 0;
+    int year = 0;
+
+    if(currentDate[1] != 1) {
+        previousMonth = currentDate[1] - 1;
+        year = currentDate[0];
+    }
+
+    else {
+        previousMonth = 12;
+        year = currentDate[0] - 1;
+    }
+
+    int numberOfDaysForPreviousMonth = DateMethods :: calculateNumberOfDaysForProvidedMonth(previousMonth, year);
+
+    string startDate = AuxiliaryMethods :: convertFromIntToString(year) + DateMethods :: convertMonthOrDayToProperFormat(previousMonth) + "01";
+    string endDate = AuxiliaryMethods :: convertFromIntToString(year) + DateMethods :: convertMonthOrDayToProperFormat(previousMonth) + AuxiliaryMethods :: convertFromIntToString(numberOfDaysForPreviousMonth);
+
+    int startDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(startDate);
+    int endDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(endDate);
+
+    vector<Income> incomesForGivenPeriod = createSortedVectorOfIncomesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+    printIncomesListedInProvidedDataForLoggedInUser(incomesForGivenPeriod);
+}
 

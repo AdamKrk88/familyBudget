@@ -35,3 +35,7 @@ void Income :: setIncomeDescription(string newIncomeDescription) {
 void Income :: setAmount(string newAmount) {
     amount = newAmount;
 }
+
+ bool Income :: operator < (const Income &income) const {
+    return (this -> date < income.date);
+ }

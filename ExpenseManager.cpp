@@ -141,3 +141,186 @@ for(int i = 0; i < expenses.size(); i++) {
 }
 
 
+void ExpenseManager :: printExpensesListedInProvidedDataForLoggedInUser(vector<Expense> &expensesForGivenPeriod) {
+
+    string firstColumnName = "Expense date";
+    string secondColumnName = "Description";
+    string thirdColumnName = "Amount";
+
+    int firstColumnNameWidth = firstColumnName.size();
+    int secondColumnNameWidth = secondColumnName.size();
+    int thirdColumnNameWidth = thirdColumnName.size();
+    int separatorWidth = 1;
+
+    string separator = "|";
+    string fixedSpaceInFirstandThirdColumns = string(4,' ');
+    string fixedSpaceInSecondColumn = string(15,' ');
+    int lengthOfFixedSpaceInFirstandThirdColumns = fixedSpaceInFirstandThirdColumns.size();
+    int lengthOfFixedSpaceInSecondColumn = fixedSpaceInSecondColumn.size();
+
+    int totalWidth = firstColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns * 2 + secondColumnNameWidth + lengthOfFixedSpaceInSecondColumn * 2 + thirdColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns * 2 + 2*separatorWidth;
+    string line = separator + string(totalWidth,'-') + separator;
+
+    cout << line;
+    cout << '\n';
+    cout << separator << fixedSpaceInFirstandThirdColumns  << firstColumnName << fixedSpaceInFirstandThirdColumns
+         << separator << fixedSpaceInSecondColumn  << secondColumnName << fixedSpaceInSecondColumn
+         << separator << fixedSpaceInFirstandThirdColumns  << thirdColumnName << fixedSpaceInFirstandThirdColumns
+         << separator;
+    cout << '\n' << line;
+
+    if(expensesForGivenPeriod.empty()) {
+        cout << endl << separator << setw(14) << "No expenses" << string(line.size() - 14 - 2*separatorWidth,' ') << separator;
+        cout << endl << line;
+    }
+
+    else {
+        int numberOfExpensesRegistered = expensesForGivenPeriod.size();
+
+        for(int i = 0; i < numberOfExpensesRegistered; i++) {
+            cout << endl << separator << " " << left << setw(firstColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns*2 - 2) << DateMethods :: convertDateFromIntToStringInCorrectFormat(expensesForGivenPeriod[i].getDate()) << " "
+                 << separator << " " << left << setw(secondColumnNameWidth + lengthOfFixedSpaceInSecondColumn*2 -2) << expensesForGivenPeriod[i].getExpenseDescription() << " "
+                 << separator << " " << left << setw(thirdColumnNameWidth + lengthOfFixedSpaceInFirstandThirdColumns*2 - 2) << expensesForGivenPeriod[i].getAmount() << " "
+                 << separator;
+        }
+        cout << endl << line;
+    }
+}
+
+
+void ExpenseManager :: printExpenseBalanceForProvidedPeriod() {
+
+    string startDate;
+    string endDate;
+    int startDateConvertedToIntFormat = 0;
+    int endDateConvertedToIntFormat = 0;
+
+    cout << "Provide period to display expenses balance" << endl;
+
+    while(true) {
+        cout << "Provide start date: ";
+        startDate = DateMethods :: loadDateFromKeyboard();
+
+        if(startDate != "") {
+            cout << "Provide end date: ";
+            endDate = DateMethods :: loadDateFromKeyboard();
+
+            if(endDate != "") {
+                startDateConvertedToIntFormat = DateMethods :: convertDateFromStringToInt(startDate);
+                endDateConvertedToIntFormat = DateMethods :: convertDateFromStringToInt(endDate);
+
+                if(startDateConvertedToIntFormat <= endDateConvertedToIntFormat) {
+                    vector<Expense> expensesForGivenPeriod = createSortedVectorOfExpensesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+                    printExpensesListedInProvidedDataForLoggedInUser(expensesForGivenPeriod);
+                    break;
+                }
+
+                else {
+                    cout << "Start date cannot be later than end date. Try once again" << endl;
+                }
+            }
+        }
+    }
+}
+
+
+vector<Expense> ExpenseManager :: createSortedVectorOfExpensesForGivenPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat) {
+
+    vector<Expense> expensesForGivenPeriod = expenses;
+    int lengthOfExpensesForGivenPeriodVector = expensesForGivenPeriod.size();
+    int indexNumber = 0;
+
+    if(!expensesForGivenPeriod.empty()) {
+        sort(expensesForGivenPeriod.begin(), expensesForGivenPeriod.end());
+
+        while(expensesForGivenPeriod[indexNumber].getDate() < startDateConvertedToIntFormat) {
+            indexNumber++;
+
+            if(indexNumber == lengthOfExpensesForGivenPeriodVector) {
+                break;
+            }
+        }
+
+        if(indexNumber == 1) {
+            expensesForGivenPeriod.erase(expensesForGivenPeriod.begin());
+        } else if(indexNumber > 1) {
+            expensesForGivenPeriod.erase(expensesForGivenPeriod.begin(),expensesForGivenPeriod.begin() + indexNumber);
+        }
+        indexNumber = 0;
+        lengthOfExpensesForGivenPeriodVector = expensesForGivenPeriod.size();
+    }
+
+    if(!expensesForGivenPeriod.empty()) {
+        while(expensesForGivenPeriod[indexNumber].getDate() <= endDateConvertedToIntFormat) {
+            indexNumber++;
+
+            if(indexNumber == lengthOfExpensesForGivenPeriodVector) {
+                break;
+            }
+        }
+
+        if(lengthOfExpensesForGivenPeriodVector - indexNumber != 0) {
+            while(expensesForGivenPeriod[indexNumber].getDate() > endDateConvertedToIntFormat) {
+                expensesForGivenPeriod.erase(expensesForGivenPeriod.begin() + indexNumber);
+                lengthOfExpensesForGivenPeriodVector = expensesForGivenPeriod.size();
+                if(lengthOfExpensesForGivenPeriodVector - indexNumber == 0) {
+                    break;
+                }
+            }
+        }
+    }
+
+    return expensesForGivenPeriod;
+}
+
+
+void ExpenseManager :: printExpenseBalanceForCurrentMonth() {
+
+    vector<int> currentDate = DateMethods :: convertDateInStringToIntVector(DateMethods :: getCurrentTimeFromSystem());
+    int numberOfDaysForCurrentMonth = DateMethods :: calculateNumberOfDaysForProvidedMonth(currentDate[1], currentDate[0]);
+
+    string startDate = AuxiliaryMethods :: convertFromIntToString(currentDate[0]) + DateMethods :: convertMonthOrDayToProperFormat(currentDate[1]) + "01";
+    string endDate = AuxiliaryMethods :: convertFromIntToString(currentDate[0]) + DateMethods :: convertMonthOrDayToProperFormat(currentDate[1]) + AuxiliaryMethods :: convertFromIntToString(numberOfDaysForCurrentMonth);
+
+    int startDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(startDate);
+    int endDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(endDate);
+
+    vector<Expense> expensesForGivenPeriod = createSortedVectorOfExpensesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+    printExpensesListedInProvidedDataForLoggedInUser(expensesForGivenPeriod);
+}
+
+
+void ExpenseManager :: printExpenseBalanceForPreviousMonth() {
+
+    vector<int> currentDate = DateMethods :: convertDateInStringToIntVector(DateMethods :: getCurrentTimeFromSystem());
+
+    int previousMonth = 0;
+    int year = 0;
+
+    if(currentDate[1] != 1) {
+        previousMonth = currentDate[1] - 1;
+        year = currentDate[0];
+    }
+
+    else {
+        previousMonth = 12;
+        year = currentDate[0] - 1;
+    }
+
+    int numberOfDaysForPreviousMonth = DateMethods :: calculateNumberOfDaysForProvidedMonth(previousMonth, year);
+
+    string startDate = AuxiliaryMethods :: convertFromIntToString(year) + DateMethods :: convertMonthOrDayToProperFormat(previousMonth) + "01";
+    string endDate = AuxiliaryMethods :: convertFromIntToString(year) + DateMethods :: convertMonthOrDayToProperFormat(previousMonth) + AuxiliaryMethods :: convertFromIntToString(numberOfDaysForPreviousMonth);
+
+    int startDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(startDate);
+    int endDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(endDate);
+
+    vector<Expense> expensesForGivenPeriod = createSortedVectorOfExpensesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+    printExpensesListedInProvidedDataForLoggedInUser(expensesForGivenPeriod);
+}
+
+
+
+
+
+
