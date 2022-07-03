@@ -30,9 +30,9 @@ public:
     };
     void addExpense();
     void printAllExpenses();
-    void printExpenseBalanceForProvidedPeriod();
-    void printExpenseBalanceForCurrentMonth();
-    void printExpenseBalanceForPreviousMonth();
+    double printExpenseBalanceForProvidedPeriod();
+    double printExpenseBalanceForCurrentMonth();
+    double printExpenseBalanceForPreviousMonth();
 };
 
 

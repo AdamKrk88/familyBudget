@@ -29,9 +29,9 @@ public:
     };
     void addIncome();
     void printAllIncomes();
-    void printIncomeBalanceForProvidedPeriod();
-    void printIncomeBalanceForCurrentMonth();
-    void printIncomeBalanceForPreviousMonth();
+    double printIncomeBalanceForProvidedPeriod();
+    double printIncomeBalanceForCurrentMonth();
+    double printIncomeBalanceForPreviousMonth();
 
 };
 

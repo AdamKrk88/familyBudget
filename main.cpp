@@ -7,15 +7,17 @@ using namespace std;
 
 int main()
 {
-  // IncomeManager incomeManager("Incomes.xml");
+ //  IncomeManager incomeManager("Incomes.xml");
 
-    ExpenseManager expenseManager("Expenses.xml");
+  // ExpenseManager expenseManager("Expenses.xml");
   //  expenseManager.addExpense();
   //  expenseManager.addExpense();
   //  expenseManager.printAllExpenses();
   //  expenseManager.printExpenseBalanceForProvidedPeriod();
-      expenseManager.printExpenseBalanceForPreviousMonth();
+    //  expenseManager.printExpenseBalanceForPreviousMonth();
 
+//   double sum = incomeManager.printIncomeBalanceForCurrentMonth();
+ //  cout << endl << "Sum:" << sum;
    // incomeManager.printIncomeBalanceForPreviousMonth();
  //   incomeManager.addIncome();
  //   incomeManager.addIncome();
@@ -25,11 +27,12 @@ int main()
  // incomeManager.printIncomesForLoggedInUserSortedByDate();
  //   incomeManager.printIncomeBalanceForProvidedPeriod();
   //  UserManager userManager("Users.xml");
+  //  userManager.changePassword();
     //userManager.registerUser();
    // userManager.registerUser();
    // userManager.registerUser();
  //   userManager.logInUser();
- //   userManager.printAllUsers();
+ //  userManager.printAllUsers();
 
 
 
