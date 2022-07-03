@@ -188,7 +188,7 @@ void ExpenseManager :: printExpensesListedInProvidedDataForLoggedInUser(vector<E
 }
 
 
-void ExpenseManager :: printExpenseBalanceForProvidedPeriod() {
+double ExpenseManager :: printExpenseBalanceForProvidedPeriod() {
 
     string startDate;
     string endDate;
@@ -211,8 +211,15 @@ void ExpenseManager :: printExpenseBalanceForProvidedPeriod() {
 
                 if(startDateConvertedToIntFormat <= endDateConvertedToIntFormat) {
                     vector<Expense> expensesForGivenPeriod = createSortedVectorOfExpensesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+
+                    double expenseSum = 0;
+
+                    for(int i = 0; i < expensesForGivenPeriod.size(); i++) {
+                        expenseSum = expenseSum + atof(expensesForGivenPeriod[i].getAmount().c_str());
+                    }
+
                     printExpensesListedInProvidedDataForLoggedInUser(expensesForGivenPeriod);
-                    break;
+                    return expenseSum;
                 }
 
                 else {
@@ -221,6 +228,7 @@ void ExpenseManager :: printExpenseBalanceForProvidedPeriod() {
             }
         }
     }
+    return 0;
 }
 
 
@@ -274,7 +282,7 @@ vector<Expense> ExpenseManager :: createSortedVectorOfExpensesForGivenPeriod(int
 }
 
 
-void ExpenseManager :: printExpenseBalanceForCurrentMonth() {
+double ExpenseManager :: printExpenseBalanceForCurrentMonth() {
 
     vector<int> currentDate = DateMethods :: convertDateInStringToIntVector(DateMethods :: getCurrentTimeFromSystem());
     int numberOfDaysForCurrentMonth = DateMethods :: calculateNumberOfDaysForProvidedMonth(currentDate[1], currentDate[0]);
@@ -286,11 +294,19 @@ void ExpenseManager :: printExpenseBalanceForCurrentMonth() {
     int endDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(endDate);
 
     vector<Expense> expensesForGivenPeriod = createSortedVectorOfExpensesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+
+    double expenseSum = 0;
+
+    for(int i = 0; i < expensesForGivenPeriod.size(); i++) {
+        expenseSum = expenseSum + atof(expensesForGivenPeriod[i].getAmount().c_str());
+    }
+
     printExpensesListedInProvidedDataForLoggedInUser(expensesForGivenPeriod);
+    return expenseSum;
 }
 
 
-void ExpenseManager :: printExpenseBalanceForPreviousMonth() {
+double ExpenseManager :: printExpenseBalanceForPreviousMonth() {
 
     vector<int> currentDate = DateMethods :: convertDateInStringToIntVector(DateMethods :: getCurrentTimeFromSystem());
 
@@ -316,7 +332,15 @@ void ExpenseManager :: printExpenseBalanceForPreviousMonth() {
     int endDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(endDate);
 
     vector<Expense> expensesForGivenPeriod = createSortedVectorOfExpensesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+
+    double expenseSum = 0;
+
+    for(int i = 0; i < expensesForGivenPeriod.size(); i++) {
+        expenseSum = expenseSum + atof(expensesForGivenPeriod[i].getAmount().c_str());
+    }
+
     printExpensesListedInProvidedDataForLoggedInUser(expensesForGivenPeriod);
+    return expenseSum;
 }
 
 

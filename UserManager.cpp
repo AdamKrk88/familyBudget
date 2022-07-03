@@ -121,3 +121,21 @@ bool UserManager :: checkIfUserIsLoggedIn() {
     else
         return false;
 }
+
+
+void UserManager :: changePassword() {
+    string newPassword = "";
+    cout << "Enter new password: ";
+    newPassword = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(AuxiliaryMethods :: loadStringLineFromKeyboard());
+
+
+    for (vector <User>::iterator itr = users.begin(); itr != users.end(); itr++) {
+        if (itr -> getUserId() == loggedUserId) {
+            itr -> setPassword(newPassword);
+            cout << "Password has been changed." << endl;
+            cout << "Click enter to continue" << endl;
+            getchar();
+        }
+    }
+    userFile.changePasswordInFile(loggedUserId,newPassword);
+}

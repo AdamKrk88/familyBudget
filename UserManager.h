@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <stdio.h>
 
 #include "User.h"
 #include "AuxiliaryMethods.h"
@@ -31,6 +32,7 @@ public:
     void printAllUsers();
     void logInUser();
     bool checkIfUserIsLoggedIn();
+    void changePassword();
 
 
 };

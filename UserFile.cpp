@@ -77,3 +77,34 @@ vector<User> UserFile :: loadAllUsersFromFileToVector() {
     }
     return users;
 }
+
+
+void UserFile :: changePasswordInFile(int userId, string newPassword) {
+
+    CMarkup xml;
+    bool fileExistCorrectlyFormatted = xml.Load(NAME_OF_USER_FILE);
+
+    if(fileExistCorrectlyFormatted) {
+        xml.FindElem();
+        xml.IntoElem();
+
+        while(xml.FindElem()) {
+            xml.IntoElem();
+
+            xml.FindElem("UserId");
+
+            if(userId == atoi(xml.GetData().c_str())) {
+                xml.FindElem("Password");
+                xml.SetData(newPassword);
+                xml.OutOfElem();
+                break;
+            }
+
+            else {
+                xml.OutOfElem();
+            }
+        }
+        xml.OutOfElem();
+        xml.Save(NAME_OF_USER_FILE);
+    }
+}

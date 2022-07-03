@@ -189,7 +189,7 @@ void IncomeManager :: printIncomesListedInProvidedDataForLoggedInUser(vector<Inc
 }
 
 
-void IncomeManager :: printIncomeBalanceForProvidedPeriod() {
+double IncomeManager :: printIncomeBalanceForProvidedPeriod() {
 
     string startDate;
     string endDate;
@@ -212,8 +212,15 @@ void IncomeManager :: printIncomeBalanceForProvidedPeriod() {
 
                 if(startDateConvertedToIntFormat <= endDateConvertedToIntFormat) {
                     vector<Income> incomesForGivenPeriod = createSortedVectorOfIncomesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+
+                    double incomeSum = 0;
+
+                    for(int i = 0; i < incomesForGivenPeriod.size(); i++) {
+                        incomeSum = incomeSum + atof(incomesForGivenPeriod[i].getAmount().c_str());
+                    }
+
                     printIncomesListedInProvidedDataForLoggedInUser(incomesForGivenPeriod);
-                    break;
+                    return incomeSum;
                 }
 
                 else {
@@ -222,6 +229,7 @@ void IncomeManager :: printIncomeBalanceForProvidedPeriod() {
             }
         }
     }
+    return 0;
 }
 
 
@@ -275,7 +283,7 @@ vector<Income> IncomeManager :: createSortedVectorOfIncomesForGivenPeriod(int st
 }
 
 
-void IncomeManager :: printIncomeBalanceForCurrentMonth() {
+double IncomeManager :: printIncomeBalanceForCurrentMonth() {
 
     vector<int> currentDate = DateMethods :: convertDateInStringToIntVector(DateMethods :: getCurrentTimeFromSystem());
     int numberOfDaysForCurrentMonth = DateMethods :: calculateNumberOfDaysForProvidedMonth(currentDate[1], currentDate[0]);
@@ -287,11 +295,19 @@ void IncomeManager :: printIncomeBalanceForCurrentMonth() {
     int endDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(endDate);
 
     vector<Income> incomesForGivenPeriod = createSortedVectorOfIncomesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+
+    double incomeSum = 0;
+
+    for(int i = 0; i < incomesForGivenPeriod.size(); i++) {
+        incomeSum = incomeSum + atof(incomesForGivenPeriod[i].getAmount().c_str());
+    }
+
     printIncomesListedInProvidedDataForLoggedInUser(incomesForGivenPeriod);
+    return incomeSum;
 }
 
 
-void IncomeManager :: printIncomeBalanceForPreviousMonth() {
+double IncomeManager :: printIncomeBalanceForPreviousMonth() {
 
     vector<int> currentDate = DateMethods :: convertDateInStringToIntVector(DateMethods :: getCurrentTimeFromSystem());
 
@@ -317,6 +333,15 @@ void IncomeManager :: printIncomeBalanceForPreviousMonth() {
     int endDateConvertedToIntFormat = AuxiliaryMethods :: convertFromStringToInt(endDate);
 
     vector<Income> incomesForGivenPeriod = createSortedVectorOfIncomesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+
+    double incomeSum = 0;
+
+    for(int i = 0; i < incomesForGivenPeriod.size(); i++) {
+        incomeSum = incomeSum + atof(incomesForGivenPeriod[i].getAmount().c_str());
+    }
+
     printIncomesListedInProvidedDataForLoggedInUser(incomesForGivenPeriod);
+
+    return incomeSum;
 }
 
