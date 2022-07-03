@@ -17,6 +17,7 @@ class ExpenseManager {
 
 vector<Expense> expenses;
 ExpenseFile expenseFile;
+const int LOGGED_USER_ID;
 
 Expense provideDataForExpense(string dateProvidedByUserOrTakenFromSystem);
 string loadExpenseAmountFromKeyboard();
@@ -25,7 +26,7 @@ vector<Expense> createSortedVectorOfExpensesForGivenPeriod(int startDateConverte
 void printExpensesListedInProvidedDataForLoggedInUser(vector<Expense> &expensesForGivenPeriod);
 
 public:
-    ExpenseManager(string nameOfExpenseFile) : expenseFile(nameOfExpenseFile) {
+    ExpenseManager(string nameOfExpenseFile, int loggedUserId) : expenseFile(nameOfExpenseFile), LOGGED_USER_ID(loggedUserId) {
     expenses = expenseFile.loadAllExpensesForLoggedUser(2);
     };
     void addExpense();

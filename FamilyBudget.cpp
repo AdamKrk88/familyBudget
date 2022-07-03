@@ -11,8 +11,18 @@ char FamilyBudget :: selectOptionFromMainMenu() {
 }
 
 
-void FamilyBudget :: registerUser() {}
-void FamilyBudget :: logInUser() {}
+void FamilyBudget :: registerUser() {
+    userManager.registerUser();
+}
+
+void FamilyBudget :: logInUser() {
+    userManager.logInUser();
+    if (userManager.checkIfUserIsLoggedIn()) {
+        incomeManager = new IncomeManager(NAME_OF_INCOME_FILE, userManager.getLoggedUserId());
+        expenseManager = new ExpenseManager(NAME_OF_EXPENSE_FILE, userManager.getLoggedUserId());
+    }
+
+}
 char FamilyBudget :: selectOptionFromUserMenu() {}
 void FamilyBudget :: addIncome() {}
 void FamilyBudget :: addExpense() {}

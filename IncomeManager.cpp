@@ -34,7 +34,7 @@ Income IncomeManager :: provideDataForIncome(string dateProvidedByUserOrTakenFro
     Income income;
 
     income.setIncomeId(incomeFile.getLastIncomeId() + 1);
-    income.setUserId(2);
+    income.setUserId(LOGGED_USER_ID);
     income.setDate(DateMethods :: convertDateFromStringToInt(dateProvidedByUserOrTakenFromSystem));
 
     string incomeDescription;

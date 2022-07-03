@@ -33,7 +33,7 @@ Expense ExpenseManager :: provideDataForExpense(string dateProvidedByUserOrTaken
     Expense expense;
 
     expense.setExpenseId(expenseFile.getLastExpenseId() + 1);
-    expense.setUserId(2);
+    expense.setUserId(LOGGED_USER_ID);
     expense.setDate(DateMethods :: convertDateFromStringToInt(dateProvidedByUserOrTakenFromSystem));
 
     string expenseDescription;

@@ -16,6 +16,7 @@ class IncomeManager {
 
 vector<Income> incomes;
 IncomeFile incomeFile;
+const int LOGGED_USER_ID;
 
 Income provideDataForIncome(string dateProvidedByUserOrTakenFromSystem);
 string loadIncomeAmountFromKeyboard();
@@ -24,7 +25,7 @@ void printIncomesListedInProvidedDataForLoggedInUser(vector<Income> &incomesForG
 vector<Income> createSortedVectorOfIncomesForGivenPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat);
 
 public:
-    IncomeManager(string nameOfIncomeFile) : incomeFile(nameOfIncomeFile) {
+    IncomeManager(string nameOfIncomeFile, int loggedUserId) : incomeFile(nameOfIncomeFile), LOGGED_USER_ID(loggedUserId) {
     incomes = incomeFile.loadAllIncomesForLoggedUser(2);
     };
     void addIncome();
