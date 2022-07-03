@@ -28,13 +28,13 @@ public:
     users = userFile.loadAllUsersFromFileToVector();
     loggedUserId = 0;
     };
+
     void registerUser();
     void printAllUsers();
     void logInUser();
     bool checkIfUserIsLoggedIn();
     void changePassword();
-
-
+    void logOutUser();
 };
 
 #endif

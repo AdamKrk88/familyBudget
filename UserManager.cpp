@@ -139,3 +139,11 @@ void UserManager :: changePassword() {
     }
     userFile.changePasswordInFile(loggedUserId,newPassword);
 }
+
+
+void UserManager :: logOutUser() {
+    loggedUserId = 0;
+    cout << "You logged out" << endl;
+    cout << "Click enter to continue" << endl;
+    getchar();
+}
