@@ -1,12 +1,13 @@
 #include <iostream>
 
+#include "FamilyBudget.h"
+
 
 using namespace std;
 
-int main()
-{
-    /*
- FamilyBudget familyBudget("Users.xml", "Incomes.xml","Expenses.xml");
+int main() {
+
+    FamilyBudget familyBudget("Users.xml", "Incomes.xml","Expenses.xml");
 
     while (true) {
         if (!familyBudget.checkIfUserIsLoggedIn()) {
@@ -58,6 +59,6 @@ int main()
             }
         }
     }
-*/
+
     return 0;
 }
