@@ -24,6 +24,7 @@ static bool checkIfReturnStatementWasProvided(string providedStatement);
 static bool checkIfLineContainZeroOrOnlyOneSign(string text, char sign);
 static string replaceCommaByDot(string textToAdjust);
 static vector<int> calculateHowManyDotsOrCommasIsInTextLine(string text);
+static char loadCharFromKeyboard();
 
 };
 
