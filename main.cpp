@@ -1,40 +1,64 @@
 #include <iostream>
-#include "UserManager.h"
-#include "IncomeManager.h"
-#include "ExpenseManager.h"
+
+#include "FamilyBudget.h"
+
 
 using namespace std;
 
-int main()
-{
- //  IncomeManager incomeManager("Incomes.xml");
+int main() {
 
-  // ExpenseManager expenseManager("Expenses.xml");
-  //  expenseManager.addExpense();
-  //  expenseManager.addExpense();
-  //  expenseManager.printAllExpenses();
-  //  expenseManager.printExpenseBalanceForProvidedPeriod();
-    //  expenseManager.printExpenseBalanceForPreviousMonth();
+    FamilyBudget familyBudget("Users.xml", "Incomes.xml","Expenses.xml");
 
-//   double sum = incomeManager.printIncomeBalanceForCurrentMonth();
- //  cout << endl << "Sum:" << sum;
-   // incomeManager.printIncomeBalanceForPreviousMonth();
- //   incomeManager.addIncome();
- //   incomeManager.addIncome();
- //   incomeManager.addIncome();
- //   incomeManager.addIncome();
-  //  incomeManager.printAllIncomes();
- // incomeManager.printIncomesForLoggedInUserSortedByDate();
- //   incomeManager.printIncomeBalanceForProvidedPeriod();
-  //  UserManager userManager("Users.xml");
-  //  userManager.changePassword();
-    //userManager.registerUser();
-   // userManager.registerUser();
-   // userManager.registerUser();
- //   userManager.logInUser();
- //  userManager.printAllUsers();
+    while (true) {
+        if (!familyBudget.checkIfUserIsLoggedIn()) {
 
+            switch (familyBudget.selectOptionFromMainMenu()) {
+            case '1':
+                familyBudget.registerUser();
+                break;
+            case '2':
+                familyBudget.logInUser();
+                break;
+            case '3':
+                exit(0);
+                break;
+            default:
+                cout << endl << "This option does not exist in menu" << endl << endl;
+                getchar();
+                break;
+            }
+        }
 
+        else {
+            switch (familyBudget.selectOptionFromUserMenu()) {
+            case '1':
+                familyBudget.addIncome();
+                break;
+            case '2':
+                familyBudget.addExpense();
+                break;
+            case '3':
+                familyBudget.printBalanceForCurrentMonth();
+                break;
+            case '4':
+                familyBudget.printBalanceForPreviousMonth();
+                break;
+            case '5':
+                familyBudget.printBalanceForProvidedPeriod();
+                break;
+            case '6':
+                familyBudget.changePassword();
+                break;
+            case '7':
+                familyBudget.logOutUser();
+                break;
+            default:
+                cout << endl << "This option does not exist in menu" << endl << endl;
+                getchar();
+                break;
+            }
+        }
+    }
 
     return 0;
 }

@@ -2,6 +2,7 @@
 
 void ExpenseManager :: addExpense() {
 
+    system("cls");
     Expense expense;
     string dateAsOfTodayOrPast = "";
     string dateProvidedByUserOrTakenFromSystem = "";
@@ -15,6 +16,7 @@ void ExpenseManager :: addExpense() {
         expenses.push_back(expense);
         expenseFile.addExpenseToFile(expense);
     } else if(dateAsOfTodayOrPast == "past") {
+        cout << "Enter date in format YYYY-MM-DD: ";
         dateProvidedByUserOrTakenFromSystem = DateMethods :: loadDateFromKeyboard();
         if(dateProvidedByUserOrTakenFromSystem != "") {
             expense = provideDataForExpense(dateProvidedByUserOrTakenFromSystem);
@@ -33,11 +35,11 @@ Expense ExpenseManager :: provideDataForExpense(string dateProvidedByUserOrTaken
     Expense expense;
 
     expense.setExpenseId(expenseFile.getLastExpenseId() + 1);
-    expense.setUserId(2);
+    expense.setUserId(getLoggedUserId());
     expense.setDate(DateMethods :: convertDateFromStringToInt(dateProvidedByUserOrTakenFromSystem));
 
     string expenseDescription;
-    cout << "Enter your expense description: ";
+    cout << endl << "Enter your expense description: ";
     getline(cin, expenseDescription);
     expenseDescription = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(expenseDescription);
     expense.setExpenseDescription(expenseDescription);
@@ -188,47 +190,17 @@ void ExpenseManager :: printExpensesListedInProvidedDataForLoggedInUser(vector<E
 }
 
 
-double ExpenseManager :: printExpenseBalanceForProvidedPeriod() {
+double ExpenseManager :: printExpenseBalanceForProvidedPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat) {
 
-    string startDate;
-    string endDate;
-    int startDateConvertedToIntFormat = 0;
-    int endDateConvertedToIntFormat = 0;
+    vector<Expense> expensesForGivenPeriod = createSortedVectorOfExpensesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+    double expenseSum = 0;
 
-    cout << "Provide period to display expenses balance" << endl;
-
-    while(true) {
-        cout << "Provide start date: ";
-        startDate = DateMethods :: loadDateFromKeyboard();
-
-        if(startDate != "") {
-            cout << "Provide end date: ";
-            endDate = DateMethods :: loadDateFromKeyboard();
-
-            if(endDate != "") {
-                startDateConvertedToIntFormat = DateMethods :: convertDateFromStringToInt(startDate);
-                endDateConvertedToIntFormat = DateMethods :: convertDateFromStringToInt(endDate);
-
-                if(startDateConvertedToIntFormat <= endDateConvertedToIntFormat) {
-                    vector<Expense> expensesForGivenPeriod = createSortedVectorOfExpensesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
-
-                    double expenseSum = 0;
-
-                    for(int i = 0; i < expensesForGivenPeriod.size(); i++) {
-                        expenseSum = expenseSum + atof(expensesForGivenPeriod[i].getAmount().c_str());
-                    }
-
-                    printExpensesListedInProvidedDataForLoggedInUser(expensesForGivenPeriod);
-                    return expenseSum;
-                }
-
-                else {
-                    cout << "Start date cannot be later than end date. Try once again" << endl;
-                }
-            }
-        }
+    for(int i = 0; i < expensesForGivenPeriod.size(); i++) {
+        expenseSum = expenseSum + atof(expensesForGivenPeriod[i].getAmount().c_str());
     }
-    return 0;
+
+    printExpensesListedInProvidedDataForLoggedInUser(expensesForGivenPeriod);
+    return expenseSum;
 }
 
 

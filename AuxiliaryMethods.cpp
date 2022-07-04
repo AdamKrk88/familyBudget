@@ -125,3 +125,21 @@ string AuxiliaryMethods :: replaceCommaByDot(string textToAdjust) {
     return textToAdjust;
 }
 
+
+char AuxiliaryMethods :: loadCharFromKeyboard() {
+    string inputFromKeyboard = "";
+    char charLoadedFromKeyboard  = {0};
+
+    while (true) {
+        getline(cin, inputFromKeyboard);
+
+        if (inputFromKeyboard.length() == 1) {
+            charLoadedFromKeyboard = inputFromKeyboard[0];
+            break;
+        }
+        cout << "It is not single char. Please try once again" << endl;
+
+    }
+    return charLoadedFromKeyboard;
+}
+

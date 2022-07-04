@@ -2,6 +2,7 @@
 
 void IncomeManager :: addIncome() {
 
+    system("cls");
     Income income;
     string dateAsOfTodayOrPast = "";
     string dateProvidedByUserOrTakenFromSystem = "";
@@ -34,11 +35,11 @@ Income IncomeManager :: provideDataForIncome(string dateProvidedByUserOrTakenFro
     Income income;
 
     income.setIncomeId(incomeFile.getLastIncomeId() + 1);
-    income.setUserId(2);
+    income.setUserId(getLoggedUserId());
     income.setDate(DateMethods :: convertDateFromStringToInt(dateProvidedByUserOrTakenFromSystem));
 
     string incomeDescription;
-    cout << "Enter your income description: ";
+    cout << endl << "Enter your income description: ";
     getline(cin, incomeDescription);
     incomeDescription = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(incomeDescription);
     income.setIncomeDescription(incomeDescription);
@@ -144,6 +145,7 @@ void IncomeManager :: printAllIncomes() {
 
 void IncomeManager :: printIncomesListedInProvidedDataForLoggedInUser(vector<Income> &incomesForGivenPeriod) {
 
+    system("cls");
     string firstColumnName = "Income date";
     string secondColumnName = "Description";
     string thirdColumnName = "Amount";
@@ -189,47 +191,17 @@ void IncomeManager :: printIncomesListedInProvidedDataForLoggedInUser(vector<Inc
 }
 
 
-double IncomeManager :: printIncomeBalanceForProvidedPeriod() {
+double IncomeManager :: printIncomeBalanceForProvidedPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat) {
 
-    string startDate;
-    string endDate;
-    int startDateConvertedToIntFormat = 0;
-    int endDateConvertedToIntFormat = 0;
+    vector<Income> incomesForGivenPeriod = createSortedVectorOfIncomesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
+    double incomeSum = 0;
 
-    cout << "Provide period to display incomes and expenses balance" << endl;
-
-    while(true) {
-        cout << "Provide start date: ";
-        startDate = DateMethods :: loadDateFromKeyboard();
-
-        if(startDate != "") {
-            cout << "Provide end date: ";
-            endDate = DateMethods :: loadDateFromKeyboard();
-
-            if(endDate != "") {
-                startDateConvertedToIntFormat = DateMethods :: convertDateFromStringToInt(startDate);
-                endDateConvertedToIntFormat = DateMethods :: convertDateFromStringToInt(endDate);
-
-                if(startDateConvertedToIntFormat <= endDateConvertedToIntFormat) {
-                    vector<Income> incomesForGivenPeriod = createSortedVectorOfIncomesForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
-
-                    double incomeSum = 0;
-
-                    for(int i = 0; i < incomesForGivenPeriod.size(); i++) {
-                        incomeSum = incomeSum + atof(incomesForGivenPeriod[i].getAmount().c_str());
-                    }
-
-                    printIncomesListedInProvidedDataForLoggedInUser(incomesForGivenPeriod);
-                    return incomeSum;
-                }
-
-                else {
-                    cout << "Start date cannot be later than end date. Try once again" << endl;
-                }
-            }
-        }
+    for(int i = 0; i < incomesForGivenPeriod.size(); i++) {
+        incomeSum = incomeSum + atof(incomesForGivenPeriod[i].getAmount().c_str());
     }
-    return 0;
+
+    printIncomesListedInProvidedDataForLoggedInUser(incomesForGivenPeriod);
+    return incomeSum;
 }
 
 

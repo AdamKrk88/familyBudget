@@ -9,14 +9,16 @@
 #include "DateMethods.h"
 #include "AuxiliaryMethods.h"
 #include "ExpenseFile.h"
+#include "BalanceManager.h"
 
 using namespace std;
 
 
-class ExpenseManager {
+class ExpenseManager : private BalanceManager {
 
 vector<Expense> expenses;
 ExpenseFile expenseFile;
+//const int LOGGED_USER_ID;
 
 Expense provideDataForExpense(string dateProvidedByUserOrTakenFromSystem);
 string loadExpenseAmountFromKeyboard();
@@ -25,12 +27,12 @@ vector<Expense> createSortedVectorOfExpensesForGivenPeriod(int startDateConverte
 void printExpensesListedInProvidedDataForLoggedInUser(vector<Expense> &expensesForGivenPeriod);
 
 public:
-    ExpenseManager(string nameOfExpenseFile) : expenseFile(nameOfExpenseFile) {
-    expenses = expenseFile.loadAllExpensesForLoggedUser(2);
+    ExpenseManager(string nameOfExpenseFile, int loggedUserId) : expenseFile(nameOfExpenseFile), BalanceManager(loggedUserId) {
+    expenses = expenseFile.loadAllExpensesForLoggedUser(getLoggedUserId());
     };
     void addExpense();
     void printAllExpenses();
-    double printExpenseBalanceForProvidedPeriod();
+    double printExpenseBalanceForProvidedPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat);
     double printExpenseBalanceForCurrentMonth();
     double printExpenseBalanceForPreviousMonth();
 };

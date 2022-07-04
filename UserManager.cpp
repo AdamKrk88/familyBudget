@@ -3,13 +3,16 @@
 
 void UserManager :: registerUser() {
 
+    system("cls");
+    cout << " >>> USER REGISTRATION <<<" << endl << endl;
     User user = provideDataForNewUser();
 
     users.push_back(user);
     userFile.addUserToFile(user);
 
     cout << endl << "Account created" << endl << endl;
-    system("pause");
+    cout << "Click enter to continue" << endl;
+    getchar();
 }
 
 
@@ -82,6 +85,9 @@ for(int i = 0; i < users.size(); i++) {
 
 
 void UserManager :: logInUser() {
+
+    system("cls");
+    cout << " >>> USER LOG IN <<<" << endl << endl;
     string login = "", password = "";
 
     cout << "Enter your login: ";
@@ -96,20 +102,23 @@ void UserManager :: logInUser() {
 
                 if (itr -> getPassword() == password) {
                     cout << endl << "You logged in." << endl << endl;
-                    system("pause");
+                    cout << "Click enter to continue" << endl;
+                    getchar();
                     loggedUserId = itr -> getUserId();
                     return;
                 }
             }
             cout << "You provided incorrect password 3 times." << endl;
-            system("pause");
+            cout << "Click enter to continue" << endl;
+            getchar();
             loggedUserId = 0;
             return;
         }
         itr++;
     }
     cout << "This login does not exist in system" << endl << endl;
-    system("pause");
+    cout << "Click enter to continue" << endl;
+    getchar();
     loggedUserId = 0;
     return;
 }
@@ -124,14 +133,16 @@ bool UserManager :: checkIfUserIsLoggedIn() {
 
 
 void UserManager :: changePassword() {
+
     string newPassword = "";
+    system("cls");
     cout << "Enter new password: ";
     newPassword = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(AuxiliaryMethods :: loadStringLineFromKeyboard());
-
 
     for (vector <User>::iterator itr = users.begin(); itr != users.end(); itr++) {
         if (itr -> getUserId() == loggedUserId) {
             itr -> setPassword(newPassword);
+            cout << endl;
             cout << "Password has been changed." << endl;
             cout << "Click enter to continue" << endl;
             getchar();
@@ -143,7 +154,12 @@ void UserManager :: changePassword() {
 
 void UserManager :: logOutUser() {
     loggedUserId = 0;
-    cout << "You logged out" << endl;
+    cout << endl << "You logged out" << endl;
     cout << "Click enter to continue" << endl;
     getchar();
 }
+
+
+ int UserManager :: getLoggedUserId() {
+    return loggedUserId;
+ }
