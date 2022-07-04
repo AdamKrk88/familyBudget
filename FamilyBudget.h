@@ -2,7 +2,7 @@
 #define FAMILYBUDGET_H
 
 #include <iostream>
-#include <cmath>
+
 
 #include "UserManager.h"
 #include "IncomeManager.h"

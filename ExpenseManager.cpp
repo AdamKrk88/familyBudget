@@ -133,13 +133,13 @@ bool ExpenseManager :: checkIfAmountFormatIsCorrect(string amount, vector<int> &
 
 void ExpenseManager :: printAllExpenses() {
 
-for(int i = 0; i < expenses.size(); i++) {
-    cout << expenses[i].getExpenseId() << endl;
-    cout << expenses[i].getUserId() << endl;
-    cout << expenses[i].getDate() << endl;
-    cout << expenses[i].getExpenseDescription() << endl;
-    cout << expenses[i].getAmount() << endl;
-}
+    for(int i = 0; i < expenses.size(); i++) {
+        cout << expenses[i].getExpenseId() << endl;
+        cout << expenses[i].getUserId() << endl;
+        cout << expenses[i].getDate() << endl;
+        cout << expenses[i].getExpenseDescription() << endl;
+        cout << expenses[i].getAmount() << endl;
+    }
 }
 
 
@@ -274,6 +274,15 @@ double ExpenseManager :: printExpenseBalanceForCurrentMonth() {
     }
 
     printExpensesListedInProvidedDataForLoggedInUser(expensesForGivenPeriod);
+
+     if(AuxiliaryMethods ::checkIfDoubleNumberIsInteger(expenseSum)) {
+        cout << endl << "Sum of expenses is " << expenseSum << " zl" << endl << endl;
+    }
+
+    else {
+        cout << endl << "Sum of expenses is " << setprecision(2) << fixed << expenseSum << " zl" << endl << endl;
+    }
+
     return expenseSum;
 }
 

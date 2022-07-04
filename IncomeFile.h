@@ -19,7 +19,7 @@ class IncomeFile {
 
 public:
     IncomeFile(string nameOfIncomeFile) : NAME_OF_INCOME_FILE(nameOfIncomeFile) {
-    lastIncomeId = 0;
+        lastIncomeId = 0;
     };
     void addIncomeToFile(Income income);
     vector<Income> loadAllIncomesForLoggedUser(int loggedUserId);

@@ -71,9 +71,9 @@ int DateMethods :: calculateNumberOfDaysForProvidedMonth(int month, int year) {
 
 
 bool DateMethods :: checkIfYearIsLeap (int year) {
-     if((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+    if((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
         return true;
-     else
+    else
         return false;
 }
 
@@ -147,29 +147,29 @@ string DateMethods :: loadDateFromKeyboard() {
 
     while(true) {
         if(checkIfFormatOfDateIsCorrect(providedDateOrReturnStatement)) {
-           // cout << endl << "Format of date correct" << endl;
+            // cout << endl << "Format of date correct" << endl;
 
             if(checkIfDateIsValid(providedDateOrReturnStatement)) {
-             //   cout << "Date is valid" << endl;
+                //   cout << "Date is valid" << endl;
                 break;
             } else {
                 cout << endl << "Date is not valid" << endl << "Provide date between 2000-01-01 and last day of current month"
-                << endl << "Or enter \"return\" to go back to User Menu: ";
+                     << endl << "Or enter \"return\" to go back to User Menu: ";
                 getline(cin, providedDateOrReturnStatement);
                 providedDateOrReturnStatement = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(providedDateOrReturnStatement);
                 if(AuxiliaryMethods :: checkIfReturnStatementWasProvided(providedDateOrReturnStatement)) {
-                        providedDateOrReturnStatement = "";
-                        break;
+                    providedDateOrReturnStatement = "";
+                    break;
                 }
             }
         } else {
             cout << endl << "Format of date is not correct."
-            << endl << "Please provide YYYY-MM-DD or enter \"return\" to go back to User Menu: ";
+                 << endl << "Please provide YYYY-MM-DD or enter \"return\" to go back to User Menu: ";
             getline(cin, providedDateOrReturnStatement);
             providedDateOrReturnStatement = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(providedDateOrReturnStatement);
             if(AuxiliaryMethods :: checkIfReturnStatementWasProvided(providedDateOrReturnStatement)) {
-                    providedDateOrReturnStatement = "";
-                    break;
+                providedDateOrReturnStatement = "";
+                break;
             }
         }
     }

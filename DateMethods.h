@@ -12,7 +12,7 @@ using namespace std;
 
 class DateMethods {
 
- //   static string convertMonthOrDayToProperFormat(int monthOrDay);
+//   static string convertMonthOrDayToProperFormat(int monthOrDay);
     static bool checkIfFormatOfDateIsCorrect(string providedDate);
     static bool checkIfDateIsValid(string dateToCheckInOneString);
 //    static vector<int> convertDateInStringToIntVector(string dateFormat);

@@ -275,6 +275,14 @@ double IncomeManager :: printIncomeBalanceForCurrentMonth() {
     }
 
     printIncomesListedInProvidedDataForLoggedInUser(incomesForGivenPeriod);
+
+    if(AuxiliaryMethods ::checkIfDoubleNumberIsInteger(incomeSum)) {
+        cout << endl << "Sum of incomes is " << incomeSum << " zl" << endl << endl << endl;
+    }
+
+    else {
+        cout << endl << "Sum of incomes is " << setprecision(2) << fixed << incomeSum << " zl" << endl << endl << endl;
+    }
     return incomeSum;
 }
 

@@ -8,7 +8,7 @@ using namespace std;
 
 class BalanceManager {
 
-const int LOGGED_USER_ID;
+    const int LOGGED_USER_ID;
 
 
 public:

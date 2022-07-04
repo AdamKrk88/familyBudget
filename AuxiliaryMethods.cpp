@@ -143,3 +143,16 @@ char AuxiliaryMethods :: loadCharFromKeyboard() {
     return charLoadedFromKeyboard;
 }
 
+
+bool AuxiliaryMethods :: checkIfDoubleNumberIsInteger(double numberToCheck) {
+
+    double intpart;
+    double fractionalPartOfDoubleNumber = 0;
+    fractionalPartOfDoubleNumber = modf(numberToCheck, &intpart);
+
+    if(fractionalPartOfDoubleNumber == 0) {
+        return true;
+    }
+
+    return false;
+}

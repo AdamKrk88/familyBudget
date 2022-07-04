@@ -19,7 +19,7 @@ class ExpenseFile {
 
 public:
     ExpenseFile(string nameOfExpenseFile) : NAME_OF_EXPENSE_FILE(nameOfExpenseFile) {
-    lastExpenseId = 0;
+        lastExpenseId = 0;
     };
     void addExpenseToFile(Expense income);
     vector<Expense> loadAllExpensesForLoggedUser(int loggedUserId);

@@ -15,19 +15,19 @@ using namespace std;
 
 class IncomeManager : private BalanceManager {
 
-vector<Income> incomes;
-IncomeFile incomeFile;
+    vector<Income> incomes;
+    IncomeFile incomeFile;
 //const int LOGGED_USER_ID;
 
-Income provideDataForIncome(string dateProvidedByUserOrTakenFromSystem);
-string loadIncomeAmountFromKeyboard();
-bool checkIfAmountFormatIsCorrect(string amount, vector<int> &numberOfCommasOrDotsInAmount);
-void printIncomesListedInProvidedDataForLoggedInUser(vector<Income> &incomesForGivenPeriod);
-vector<Income> createSortedVectorOfIncomesForGivenPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat);
+    Income provideDataForIncome(string dateProvidedByUserOrTakenFromSystem);
+    string loadIncomeAmountFromKeyboard();
+    bool checkIfAmountFormatIsCorrect(string amount, vector<int> &numberOfCommasOrDotsInAmount);
+    void printIncomesListedInProvidedDataForLoggedInUser(vector<Income> &incomesForGivenPeriod);
+    vector<Income> createSortedVectorOfIncomesForGivenPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat);
 
 public:
     IncomeManager(string nameOfIncomeFile, int loggedUserId) : incomeFile(nameOfIncomeFile), BalanceManager(loggedUserId) {
-    incomes = incomeFile.loadAllIncomesForLoggedUser(getLoggedUserId());
+        incomes = incomeFile.loadAllIncomesForLoggedUser(getLoggedUserId());
     };
     void addIncome();
     void printAllIncomes();

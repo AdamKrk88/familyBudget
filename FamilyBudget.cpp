@@ -54,34 +54,12 @@ void FamilyBudget :: addExpense() {
 
 void FamilyBudget :: printBalanceForCurrentMonth() {
 
-    double intpart;
-    double fractionalPartOfDoubleNumber = 0;
     double sumOfIncomes = incomeManager -> printIncomeBalanceForCurrentMonth();
-    fractionalPartOfDoubleNumber = modf(sumOfIncomes, &intpart);
-
-    if(fractionalPartOfDoubleNumber == 0) {
-        cout << endl << "Sum of incomes is " << sumOfIncomes << " zl" << endl << endl << endl;
-    }
-
-    else {
-        cout << endl << "Sum of incomes is " << setprecision(2) << fixed << sumOfIncomes << " zl" << endl << endl << endl;
-    }
-
     double sumOfExpenses = expenseManager -> printExpenseBalanceForCurrentMonth();
-    fractionalPartOfDoubleNumber = modf(sumOfExpenses, &intpart);
-
-    if(fractionalPartOfDoubleNumber == 0) {
-        cout << endl << "Sum of expenses is " << setprecision(0) << fixed << sumOfExpenses << " zl" << endl << endl;
-    }
-
-    else {
-        cout << endl << "Sum of expenses is " << setprecision(2) << fixed << sumOfExpenses << " zl" << endl << endl;
-    }
 
     double finalBalance = sumOfIncomes - sumOfExpenses;
-    fractionalPartOfDoubleNumber = modf(finalBalance, &intpart);
 
-    if(fractionalPartOfDoubleNumber == 0) {
+    if(AuxiliaryMethods :: checkIfDoubleNumberIsInteger(finalBalance)) {
         cout << "Balance is: " << setprecision(0) << fixed << finalBalance << " zl" << endl;
     }
 
