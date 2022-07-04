@@ -26,6 +26,7 @@ public:
     static int calculateNumberOfDaysForProvidedMonth(int month, int year);
     static vector<int> convertDateInStringToIntVector(string dateFormat);
     static string convertMonthOrDayToProperFormat(int monthOrDay);
+    static vector<int> enterStartEndDate();
 
 };
 

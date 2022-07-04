@@ -133,14 +133,16 @@ bool UserManager :: checkIfUserIsLoggedIn() {
 
 
 void UserManager :: changePassword() {
+
     string newPassword = "";
+    system("cls");
     cout << "Enter new password: ";
     newPassword = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(AuxiliaryMethods :: loadStringLineFromKeyboard());
-
 
     for (vector <User>::iterator itr = users.begin(); itr != users.end(); itr++) {
         if (itr -> getUserId() == loggedUserId) {
             itr -> setPassword(newPassword);
+            cout << endl;
             cout << "Password has been changed." << endl;
             cout << "Click enter to continue" << endl;
             getchar();
@@ -152,7 +154,7 @@ void UserManager :: changePassword() {
 
 void UserManager :: logOutUser() {
     loggedUserId = 0;
-    cout << "You logged out" << endl;
+    cout << endl << "You logged out" << endl;
     cout << "Click enter to continue" << endl;
     getchar();
 }

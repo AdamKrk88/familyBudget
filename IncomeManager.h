@@ -9,14 +9,15 @@
 #include "DateMethods.h"
 #include "AuxiliaryMethods.h"
 #include "IncomeFile.h"
+#include "BalanceManager.h"
 
 using namespace std;
 
-class IncomeManager {
+class IncomeManager : private BalanceManager {
 
 vector<Income> incomes;
 IncomeFile incomeFile;
-const int LOGGED_USER_ID;
+//const int LOGGED_USER_ID;
 
 Income provideDataForIncome(string dateProvidedByUserOrTakenFromSystem);
 string loadIncomeAmountFromKeyboard();
@@ -25,12 +26,12 @@ void printIncomesListedInProvidedDataForLoggedInUser(vector<Income> &incomesForG
 vector<Income> createSortedVectorOfIncomesForGivenPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat);
 
 public:
-    IncomeManager(string nameOfIncomeFile, int loggedUserId) : incomeFile(nameOfIncomeFile), LOGGED_USER_ID(loggedUserId) {
-    incomes = incomeFile.loadAllIncomesForLoggedUser(2);
+    IncomeManager(string nameOfIncomeFile, int loggedUserId) : incomeFile(nameOfIncomeFile), BalanceManager(loggedUserId) {
+    incomes = incomeFile.loadAllIncomesForLoggedUser(getLoggedUserId());
     };
     void addIncome();
     void printAllIncomes();
-    double printIncomeBalanceForProvidedPeriod();
+    double printIncomeBalanceForProvidedPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat);
     double printIncomeBalanceForCurrentMonth();
     double printIncomeBalanceForPreviousMonth();
 

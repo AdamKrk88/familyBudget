@@ -153,7 +153,7 @@ string DateMethods :: loadDateFromKeyboard() {
              //   cout << "Date is valid" << endl;
                 break;
             } else {
-                cout << "Date is not valid" << endl << "Provide date between 2000-01-01 and last day of current month"
+                cout << endl << "Date is not valid" << endl << "Provide date between 2000-01-01 and last day of current month"
                 << endl << "Or enter \"return\" to go back to User Menu: ";
                 getline(cin, providedDateOrReturnStatement);
                 providedDateOrReturnStatement = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(providedDateOrReturnStatement);
@@ -193,3 +193,42 @@ string DateMethods :: convertDateFromIntToStringInCorrectFormat(int dateAsNumber
     return dateConvertedFromInt;
 }
 
+
+vector<int> DateMethods :: enterStartEndDate() {
+
+    string startDate;
+    string endDate;
+    int startDateConvertedToIntFormat = 0;
+    int endDateConvertedToIntFormat = 0;
+    vector<int> startEndDateProvidedFromKeyboard(2,0);
+
+    while(true) {
+        cout << "Provide start date: ";
+        startDate = loadDateFromKeyboard();
+
+        if(startDate == "") {
+            break;
+        }
+
+        cout << "Provide end date: ";
+        endDate = loadDateFromKeyboard();
+
+        if(endDate == "") {
+            break;
+        }
+
+        startDateConvertedToIntFormat = convertDateFromStringToInt(startDate);
+        endDateConvertedToIntFormat = convertDateFromStringToInt(endDate);
+
+        if(startDateConvertedToIntFormat <= endDateConvertedToIntFormat) {
+            startEndDateProvidedFromKeyboard[0] = startDateConvertedToIntFormat;
+            startEndDateProvidedFromKeyboard[1] = endDateConvertedToIntFormat;
+            return startEndDateProvidedFromKeyboard;
+        }
+
+        else {
+            cout << "Start date cannot be later than end date. Try once again" << endl;
+        }
+    }
+    return startEndDateProvidedFromKeyboard;
+}
