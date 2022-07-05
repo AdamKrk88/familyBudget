@@ -1,7 +1,7 @@
 #include "ExpenseFile.h"
 
 
-void ExpenseFile :: addExpenseToFile(Expense expense) {
+void ExpenseFile :: addFinancialMovementToFile(FinancialMovement financialMovement) {
     CMarkup xml;
     bool fileExistCorrectlyFormatted = xml.Load(NAME_OF_EXPENSE_FILE);
 
@@ -14,22 +14,22 @@ void ExpenseFile :: addExpenseToFile(Expense expense) {
     xml.IntoElem();
     xml.AddElem("Expense");
     xml.IntoElem();
-    xml.AddElem("ExpenseId",AuxiliaryMethods :: convertFromIntToString(expense.getExpenseId()));
-    xml.AddElem("UserId",AuxiliaryMethods :: convertFromIntToString(expense.getUserId()));
-    xml.AddElem("Date",DateMethods :: convertDateFromIntToStringInCorrectFormat(expense.getDate()));
-    xml.AddElem("Item",expense.getExpenseDescription());
-    xml.AddElem("Amount",expense.getAmount());
+    xml.AddElem("ExpenseId",AuxiliaryMethods :: convertFromIntToString(financialMovement.getFinancialMovementId()));
+    xml.AddElem("UserId",AuxiliaryMethods :: convertFromIntToString(financialMovement.getUserId()));
+    xml.AddElem("Date",DateMethods :: convertDateFromIntToStringInCorrectFormat(financialMovement.getDate()));
+    xml.AddElem("Item",financialMovement.getFinancialMovementDescription());
+    xml.AddElem("Amount",financialMovement.getAmount());
 
     xml.Save(NAME_OF_EXPENSE_FILE);
     lastExpenseId++;
 }
 
 
-vector<Expense> ExpenseFile :: loadAllExpensesForLoggedUser(int loggedUserId) {
+vector<FinancialMovement> ExpenseFile :: loadAllFinancialMovementsForLoggedUser(int loggedUserId) {
 
     CMarkup xml;
-    Expense expense;
-    vector<Expense> expenses;
+    FinancialMovement financialMovement;
+    vector<FinancialMovement> financialMovements;
     int numberOfItemFromFile = 0;
     bool fileExistCorrectlyFormatted = xml.Load(NAME_OF_EXPENSE_FILE);
 
@@ -50,33 +50,33 @@ vector<Expense> ExpenseFile :: loadAllExpensesForLoggedUser(int loggedUserId) {
 
                     switch(numberOfItemFromFile) {
                     case 0:
-                        expense.setExpenseId(atoi(xml.GetData().c_str()));
+                        financialMovement.setFinancialMovementId(atoi(xml.GetData().c_str()));
                         numberOfItemFromFile++;
                         break;
 
                     case 1:
-                        expense.setUserId(loggedUserId);
+                        financialMovement.setUserId(loggedUserId);
                         numberOfItemFromFile++;
                         break;
 
                     case 2:
-                        expense.setDate(DateMethods :: convertDateFromStringToInt(xml.GetData()));
+                        financialMovement.setDate(DateMethods :: convertDateFromStringToInt(xml.GetData()));
                         numberOfItemFromFile++;
                         break;
 
                     case 3:
-                        expense.setExpenseDescription(xml.GetData());
+                        financialMovement.setFinancialMovementDescription(xml.GetData());
                         numberOfItemFromFile++;
                         break;
 
                     case 4:
-                        expense.setAmount(xml.GetData());
+                        financialMovement.setAmount(xml.GetData());
                         numberOfItemFromFile++;
                         break;
                     }
                 }
 
-                expenses.push_back(expense);
+                financialMovements.push_back(financialMovement);
                 numberOfItemFromFile = 0;
                 xml.OutOfElem();
             }
@@ -87,10 +87,10 @@ vector<Expense> ExpenseFile :: loadAllExpensesForLoggedUser(int loggedUserId) {
         }
         xml.OutOfElem();
     }
-    return expenses;
+    return financialMovements;
 }
 
 
-int ExpenseFile :: getLastExpenseId() {
+int ExpenseFile :: getLastItemId() {
     return lastExpenseId;
 }

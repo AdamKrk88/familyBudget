@@ -147,10 +147,8 @@ string DateMethods :: loadDateFromKeyboard() {
 
     while(true) {
         if(checkIfFormatOfDateIsCorrect(providedDateOrReturnStatement)) {
-            // cout << endl << "Format of date correct" << endl;
 
             if(checkIfDateIsValid(providedDateOrReturnStatement)) {
-                //   cout << "Date is valid" << endl;
                 break;
             } else {
                 cout << endl << "Date is not valid" << endl << "Provide date between 2000-01-01 and last day of current month"

@@ -25,6 +25,7 @@ int main() {
             default:
                 cout << endl << "This option does not exist in menu" << endl << endl;
                 getchar();
+                cin.sync();
                 break;
             }
         }
@@ -55,6 +56,7 @@ int main() {
             default:
                 cout << endl << "This option does not exist in menu" << endl << endl;
                 getchar();
+                cin.sync();
                 break;
             }
         }

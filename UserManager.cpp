@@ -13,6 +13,7 @@ void UserManager :: registerUser() {
     cout << endl << "Account created" << endl << endl;
     cout << "Click enter to continue" << endl;
     getchar();
+    cin.sync();
 }
 
 
@@ -104,6 +105,7 @@ void UserManager :: logInUser() {
                     cout << endl << "You logged in." << endl << endl;
                     cout << "Click enter to continue" << endl;
                     getchar();
+                    cin.sync();
                     loggedUserId = itr -> getUserId();
                     return;
                 }
@@ -111,6 +113,7 @@ void UserManager :: logInUser() {
             cout << "You provided incorrect password 3 times." << endl;
             cout << "Click enter to continue" << endl;
             getchar();
+            cin.sync();
             loggedUserId = 0;
             return;
         }
@@ -119,6 +122,7 @@ void UserManager :: logInUser() {
     cout << "This login does not exist in system" << endl << endl;
     cout << "Click enter to continue" << endl;
     getchar();
+    cin.sync();
     loggedUserId = 0;
     return;
 }
@@ -146,6 +150,7 @@ void UserManager :: changePassword() {
             cout << "Password has been changed." << endl;
             cout << "Click enter to continue" << endl;
             getchar();
+            cin.sync();
         }
     }
     userFile.changePasswordInFile(loggedUserId,newPassword);
@@ -157,6 +162,7 @@ void UserManager :: logOutUser() {
     cout << endl << "You logged out" << endl;
     cout << "Click enter to continue" << endl;
     getchar();
+    cin.sync();
 }
 
 

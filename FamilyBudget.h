@@ -21,6 +21,8 @@ class FamilyBudget {
     const string NAME_OF_INCOME_FILE;
     const string NAME_OF_EXPENSE_FILE;
 
+    void printFinalBalanceOnScreen(double sumOfIncomes, double sumOfExpenses);
+
 public:
     FamilyBudget(string nameOfUserFile, string nameOfIncomeFile, string nameOfExpenseFile) : userManager(nameOfUserFile), NAME_OF_INCOME_FILE(nameOfIncomeFile), NAME_OF_EXPENSE_FILE(nameOfExpenseFile)  {
         incomeManager = NULL;
@@ -47,8 +49,6 @@ public:
     void printBalanceForProvidedPeriod();
     void changePassword();
     void logOutUser();
-
-
 };
 
 

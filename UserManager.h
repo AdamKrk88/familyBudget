@@ -22,7 +22,6 @@ class UserManager {
     int loadIdForNewUser();
     bool checkIfLoginForNewUserExistInSystem(string login);
 
-
 public:
     UserManager(string nameOfUserFile) : userFile(nameOfUserFile) {
         users = userFile.loadAllUsersFromFileToVector();
@@ -37,5 +36,6 @@ public:
     void logOutUser();
     int getLoggedUserId();
 };
+
 
 #endif
