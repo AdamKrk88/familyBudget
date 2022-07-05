@@ -22,6 +22,8 @@ class FinancialMovementManager {
     vector<FinancialMovement> createSortedVectorOfFinancialMovementsForGivenPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat);
     void printFinancialMovementsListedInProvidedDataForLoggedInUser(vector<FinancialMovement> &financialMovementsForGivenPeriod);
     string createNameForFirstColumn();
+    void printFinancialMovementsSumOnScreen(double financialMovementSum);
+    double calculateSumOfAmountsForFinancialMovements(vector<FinancialMovement> &financialMovementsForGivenPeriod);
 
 protected:
     XmlFile *xmlFile;
@@ -34,7 +36,6 @@ public:
 
     int getLoggedUserId();
     void addFinancialMovement();
-    void printAllFinancialMovements();
     double printFinancialMovementBalanceForProvidedPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat);
     double printFinancialMovementBalanceForCurrentMonth();
     double printFinancialMovementBalanceForPreviousMonth();

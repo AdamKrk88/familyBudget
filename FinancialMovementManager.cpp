@@ -136,18 +136,6 @@ bool FinancialMovementManager :: checkIfAmountFormatIsCorrect(string amount, vec
 }
 
 
-void FinancialMovementManager :: printAllFinancialMovements() {
-
-    for(int i = 0; i < financialMovements.size(); i++) {
-        cout << financialMovements[i].getFinancialMovementId() << endl;
-        cout << financialMovements[i].getUserId() << endl;
-        cout << financialMovements[i].getDate() << endl;
-        cout << financialMovements[i].getFinancialMovementDescription() << endl;
-        cout << financialMovements[i].getAmount() << endl;
-    }
-}
-
-
 void FinancialMovementManager :: printFinancialMovementsListedInProvidedDataForLoggedInUser(vector<FinancialMovement> &financialMovementsForGivenPeriod) {
 
     string firstColumnName = createNameForFirstColumn();
@@ -198,21 +186,10 @@ void FinancialMovementManager :: printFinancialMovementsListedInProvidedDataForL
 double FinancialMovementManager :: printFinancialMovementBalanceForProvidedPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat) {
 
     vector<FinancialMovement> financialMovementsForGivenPeriod = createSortedVectorOfFinancialMovementsForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
-    double financialMovementSum = 0;
-
-    for(int i = 0; i < financialMovementsForGivenPeriod.size(); i++) {
-        financialMovementSum = financialMovementSum + atof(financialMovementsForGivenPeriod[i].getAmount().c_str());
-    }
+    double financialMovementSum = calculateSumOfAmountsForFinancialMovements(financialMovementsForGivenPeriod);
 
     printFinancialMovementsListedInProvidedDataForLoggedInUser(financialMovementsForGivenPeriod);
-
-    if(AuxiliaryMethods ::checkIfDoubleNumberIsInteger(financialMovementSum)) {
-        cout << endl << "Sum of " << TYPE_OF_FINANCIAL_MOVEMENT << "s is " << setprecision(0) << fixed << financialMovementSum << " zl" << endl << endl << endl;
-    }
-
-    else {
-        cout << endl << "Sum of " << TYPE_OF_FINANCIAL_MOVEMENT << "s is " << setprecision(2) << fixed << financialMovementSum << " zl" << endl << endl << endl;
-    }
+    printFinancialMovementsSumOnScreen(financialMovementSum);
 
     return financialMovementSum;
 }
@@ -281,21 +258,10 @@ double FinancialMovementManager :: printFinancialMovementBalanceForCurrentMonth(
 
     vector<FinancialMovement> financialMovementsForGivenPeriod = createSortedVectorOfFinancialMovementsForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
 
-    double financialMovementSum = 0;
-
-    for(int i = 0; i < financialMovementsForGivenPeriod.size(); i++) {
-        financialMovementSum = financialMovementSum + atof(financialMovementsForGivenPeriod[i].getAmount().c_str());
-    }
+    double financialMovementSum = calculateSumOfAmountsForFinancialMovements(financialMovementsForGivenPeriod);
 
     printFinancialMovementsListedInProvidedDataForLoggedInUser(financialMovementsForGivenPeriod);
-
-     if(AuxiliaryMethods ::checkIfDoubleNumberIsInteger(financialMovementSum)) {
-        cout << endl << "Sum of " << TYPE_OF_FINANCIAL_MOVEMENT << "s is " << setprecision(0) << fixed << financialMovementSum << " zl" << endl << endl;
-    }
-
-    else {
-        cout << endl << "Sum of " << TYPE_OF_FINANCIAL_MOVEMENT << "s is " << setprecision(2) << fixed << financialMovementSum << " zl" << endl << endl;
-    }
+    printFinancialMovementsSumOnScreen(financialMovementSum);
 
     return financialMovementSum;
 }
@@ -328,21 +294,10 @@ double FinancialMovementManager :: printFinancialMovementBalanceForPreviousMonth
 
     vector<FinancialMovement> financialMovementsForGivenPeriod = createSortedVectorOfFinancialMovementsForGivenPeriod(startDateConvertedToIntFormat, endDateConvertedToIntFormat);
 
-    double financialMovementSum = 0;
-
-    for(int i = 0; i < financialMovementsForGivenPeriod.size(); i++) {
-        financialMovementSum = financialMovementSum + atof(financialMovementsForGivenPeriod[i].getAmount().c_str());
-    }
+    double financialMovementSum = calculateSumOfAmountsForFinancialMovements(financialMovementsForGivenPeriod);
 
     printFinancialMovementsListedInProvidedDataForLoggedInUser(financialMovementsForGivenPeriod);
-
-    if(AuxiliaryMethods ::checkIfDoubleNumberIsInteger(financialMovementSum)) {
-        cout << endl << "Sum of " << TYPE_OF_FINANCIAL_MOVEMENT << "s is " << setprecision(0) << fixed << financialMovementSum << " zl" << endl << endl << endl;
-    }
-
-    else {
-        cout << endl << "Sum of " << TYPE_OF_FINANCIAL_MOVEMENT << "s is " << setprecision(2) << fixed << financialMovementSum << " zl" << endl << endl << endl;
-    }
+    printFinancialMovementsSumOnScreen(financialMovementSum);
 
     return financialMovementSum;
 }
@@ -356,5 +311,31 @@ string FinancialMovementManager :: createNameForFirstColumn() {
 
     else {
         return "Income date";
+    }
+}
+
+
+double FinancialMovementManager :: calculateSumOfAmountsForFinancialMovements(vector<FinancialMovement> &financialMovementsForGivenPeriod ) {
+
+    double financialMovementSum = 0;
+
+    if(!financialMovementsForGivenPeriod.empty()) {
+        for(int i = 0; i < financialMovementsForGivenPeriod.size(); i++) {
+            financialMovementSum = financialMovementSum + atof(financialMovementsForGivenPeriod[i].getAmount().c_str());
+        }
+    }
+
+    return financialMovementSum;
+}
+
+
+void FinancialMovementManager :: printFinancialMovementsSumOnScreen(double financialMovementSum) {
+
+  if(AuxiliaryMethods ::checkIfDoubleNumberIsInteger(financialMovementSum)) {
+        cout << endl << "Sum of " << TYPE_OF_FINANCIAL_MOVEMENT << "s is " << setprecision(0) << fixed << financialMovementSum << " zl" << endl << endl << endl;
+    }
+
+    else {
+        cout << endl << "Sum of " << TYPE_OF_FINANCIAL_MOVEMENT << "s is " << setprecision(2) << fixed << financialMovementSum << " zl" << endl << endl << endl;
     }
 }
