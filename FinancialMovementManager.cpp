@@ -7,7 +7,6 @@ int FinancialMovementManager :: getLoggedUserId() {
 
 void FinancialMovementManager :: addFinancialMovement() {
 
-    system("cls");
     FinancialMovement financialMovement;
     string dateAsOfTodayOrPast = "";
     string dateProvidedByUserOrTakenFromSystem = "";
@@ -142,7 +141,7 @@ void FinancialMovementManager :: printFinancialMovementsListedInProvidedDataForL
     string secondColumnName = "Description";
     string thirdColumnName = "Amount";
 
-    int firstColumnNameWidth = firstColumnName.size();
+    int firstColumnNameWidth = calculateProperWidthForNameInFirstColumn(firstColumnName);
     int secondColumnNameWidth = secondColumnName.size();
     int thirdColumnNameWidth = thirdColumnName.size();
     int separatorWidth = 1;
@@ -158,8 +157,16 @@ void FinancialMovementManager :: printFinancialMovementsListedInProvidedDataForL
 
     cout << line;
     cout << '\n';
-    cout << separator << fixedSpaceInFirstandThirdColumns  << firstColumnName << fixedSpaceInFirstandThirdColumns
-         << separator << fixedSpaceInSecondColumn  << secondColumnName << fixedSpaceInSecondColumn
+
+    if(TYPE_OF_FINANCIAL_MOVEMENT == "income") {
+        cout << separator << fixedSpaceInFirstandThirdColumns  << firstColumnName << fixedSpaceInFirstandThirdColumns;
+    }
+
+    else if(TYPE_OF_FINANCIAL_MOVEMENT == "expense") {
+        cout << separator << fixedSpaceInFirstandThirdColumns  << firstColumnName << string(3,' ');
+    }
+
+    cout << separator << fixedSpaceInSecondColumn  << secondColumnName << fixedSpaceInSecondColumn
          << separator << fixedSpaceInFirstandThirdColumns  << thirdColumnName << fixedSpaceInFirstandThirdColumns
          << separator;
     cout << '\n' << line;
@@ -338,4 +345,20 @@ void FinancialMovementManager :: printFinancialMovementsSumOnScreen(double finan
     else {
         cout << endl << "Sum of " << TYPE_OF_FINANCIAL_MOVEMENT << "s is " << setprecision(2) << fixed << financialMovementSum << " zl" << endl << endl << endl;
     }
+}
+
+
+int FinancialMovementManager :: calculateProperWidthForNameInFirstColumn(string firstColumnName) {
+
+    int firstColumnNameWidth = 0;
+
+    if(firstColumnName == "Expense date") {
+        firstColumnNameWidth = firstColumnName.size() - 1;
+    }
+
+    else {
+        firstColumnNameWidth = firstColumnName.size();
+    }
+
+    return firstColumnNameWidth;
 }

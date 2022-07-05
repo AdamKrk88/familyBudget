@@ -27,6 +27,7 @@ public:
     static vector<int> calculateHowManyDotsOrCommasIsInTextLine(string text);
     static char loadCharFromKeyboard();
     static bool checkIfDoubleNumberIsInteger(double numberToCheck);
+    static void initialMessageOnScreen(string initialMessage);
 };
 
 

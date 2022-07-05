@@ -24,6 +24,7 @@ class FinancialMovementManager {
     string createNameForFirstColumn();
     void printFinancialMovementsSumOnScreen(double financialMovementSum);
     double calculateSumOfAmountsForFinancialMovements(vector<FinancialMovement> &financialMovementsForGivenPeriod);
+    int calculateProperWidthForNameInFirstColumn(string firstColumnName);
 
 protected:
     XmlFile *xmlFile;

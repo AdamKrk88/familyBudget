@@ -23,9 +23,9 @@ public:
         lastIncomeId = 0;
     };
 
-    void addFinancialMovementToFile(FinancialMovement financialMovement);
-    vector<FinancialMovement> loadAllFinancialMovementsForLoggedUser(int loggedUserId);
-    int getLastItemId();
+    virtual void addFinancialMovementToFile(FinancialMovement financialMovement);
+    virtual vector<FinancialMovement> loadAllFinancialMovementsForLoggedUser(int loggedUserId);
+    virtual int getLastItemId();
 };
 
 

@@ -3,8 +3,6 @@
 
 void UserManager :: registerUser() {
 
-    system("cls");
-    cout << " >>> USER REGISTRATION <<<" << endl << endl;
     User user = provideDataForNewUser();
 
     users.push_back(user);
@@ -87,8 +85,6 @@ void UserManager :: printAllUsers() {
 
 void UserManager :: logInUser() {
 
-    system("cls");
-    cout << " >>> USER LOG IN <<<" << endl << endl;
     string login = "", password = "";
 
     cout << "Enter your login: ";
@@ -139,7 +135,6 @@ bool UserManager :: checkIfUserIsLoggedIn() {
 void UserManager :: changePassword() {
 
     string newPassword = "";
-    system("cls");
     cout << "Enter new password: ";
     newPassword = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(AuxiliaryMethods :: loadStringLineFromKeyboard());
 

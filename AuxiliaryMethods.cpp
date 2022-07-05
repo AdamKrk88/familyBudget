@@ -156,3 +156,10 @@ bool AuxiliaryMethods :: checkIfDoubleNumberIsInteger(double numberToCheck) {
 
     return false;
 }
+
+
+void AuxiliaryMethods :: initialMessageOnScreen(string initialMessage) {
+
+    system("cls");
+    cout << initialMessage << endl << endl;
+}

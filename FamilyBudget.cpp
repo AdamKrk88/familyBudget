@@ -12,10 +12,14 @@ char FamilyBudget :: selectOptionFromMainMenu() {
 
 
 void FamilyBudget :: registerUser() {
+
+    AuxiliaryMethods :: initialMessageOnScreen(" >>> USER REGISTRATION <<<");
     userManager.registerUser();
 }
 
 void FamilyBudget :: logInUser() {
+
+     AuxiliaryMethods :: initialMessageOnScreen(" >>> USER LOG IN <<<");
     userManager.logInUser();
     if (userManager.checkIfUserIsLoggedIn()) {
         incomeManager = new IncomeManager(NAME_OF_INCOME_FILE, userManager.getLoggedUserId());
@@ -30,6 +34,7 @@ char FamilyBudget :: selectOptionFromUserMenu() {
 
 void FamilyBudget :: addIncome() {
 
+    AuxiliaryMethods :: initialMessageOnScreen(" >>> ADD INCOME <<<");
     if(userManager.checkIfUserIsLoggedIn()) {
         incomeManager -> addFinancialMovement();
     }
@@ -42,6 +47,7 @@ void FamilyBudget :: addIncome() {
 
 void FamilyBudget :: addExpense() {
 
+    AuxiliaryMethods :: initialMessageOnScreen(" >>> ADD EXPENSE <<<");
     if(userManager.checkIfUserIsLoggedIn()) {
         expenseManager -> addFinancialMovement();
     }
@@ -54,7 +60,7 @@ void FamilyBudget :: addExpense() {
 
 void FamilyBudget :: printBalanceForCurrentMonth() {
 
-    system("cls");
+    AuxiliaryMethods :: initialMessageOnScreen(" >>> PRINT BALANCE FOR CURRENT MONTH <<<");
     double sumOfIncomes = incomeManager -> printFinancialMovementBalanceForCurrentMonth();
     double sumOfExpenses = expenseManager -> printFinancialMovementBalanceForCurrentMonth();
     printFinalBalanceOnScreen(sumOfIncomes, sumOfExpenses);
@@ -63,7 +69,7 @@ void FamilyBudget :: printBalanceForCurrentMonth() {
 
 void FamilyBudget :: printBalanceForPreviousMonth() {
 
-    system("cls");
+    AuxiliaryMethods :: initialMessageOnScreen(" >>> PRINT BALANCE FOR PREVIOUS MONTH <<<");
     double sumOfIncomes = incomeManager -> printFinancialMovementBalanceForPreviousMonth();
     double sumOfExpenses = expenseManager -> printFinancialMovementBalanceForPreviousMonth();
     printFinalBalanceOnScreen(sumOfIncomes, sumOfExpenses);
@@ -72,13 +78,14 @@ void FamilyBudget :: printBalanceForPreviousMonth() {
 
 void FamilyBudget :: printBalanceForProvidedPeriod() {
 
-    system("cls");
+    AuxiliaryMethods :: initialMessageOnScreen(" >>> PRINT BALANCE FOR PROVIDED PERIOD <<<");
     vector<int> startEndDateProvidedFromKeyboard(2,0);
     cout << "Provide start and end date to display list of incomes and expenses" << endl << endl;
     startEndDateProvidedFromKeyboard = DateMethods :: enterStartEndDate();
 
     if(startEndDateProvidedFromKeyboard[0] != 0 && startEndDateProvidedFromKeyboard[1] != 0) {
-        cout << endl;
+        AuxiliaryMethods :: initialMessageOnScreen(" >>> PRINT BALANCE FOR PROVIDED PERIOD <<<");
+        cout << "PERIOD FROM " <<DateMethods :: convertDateFromIntToStringInCorrectFormat(startEndDateProvidedFromKeyboard[0]) << " TO " << DateMethods :: convertDateFromIntToStringInCorrectFormat(startEndDateProvidedFromKeyboard[1]) << endl << endl;
         double sumOfIncomes = incomeManager -> printFinancialMovementBalanceForProvidedPeriod(startEndDateProvidedFromKeyboard[0], startEndDateProvidedFromKeyboard[1]);
         double sumOfExpenses = expenseManager -> printFinancialMovementBalanceForProvidedPeriod(startEndDateProvidedFromKeyboard[0], startEndDateProvidedFromKeyboard[1]);
         printFinalBalanceOnScreen(sumOfIncomes, sumOfExpenses);
@@ -86,6 +93,7 @@ void FamilyBudget :: printBalanceForProvidedPeriod() {
 }
 
 void FamilyBudget :: changePassword() {
+    AuxiliaryMethods :: initialMessageOnScreen(" >>> CHANGE PASSWORD <<<");
     userManager.changePassword();
 }
 
