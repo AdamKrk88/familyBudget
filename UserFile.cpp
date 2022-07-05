@@ -41,8 +41,8 @@ vector<User> UserFile :: loadAllUsersFromFileToVector() {
             xml.IntoElem();
 
             while(xml.FindElem()) {
-
                 switch(numberOfItemFromFile) {
+
                 case 0:
                     user.setUserId(atoi(xml.GetData().c_str()));
                     numberOfItemFromFile++;
@@ -98,9 +98,7 @@ void UserFile :: changePasswordInFile(int userId, string newPassword) {
                 xml.SetData(newPassword);
                 xml.OutOfElem();
                 break;
-            }
-
-            else {
+            } else {
                 xml.OutOfElem();
             }
         }

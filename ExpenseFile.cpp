@@ -2,6 +2,7 @@
 
 
 void ExpenseFile :: addFinancialMovementToFile(FinancialMovement financialMovement) {
+
     CMarkup xml;
     bool fileExistCorrectlyFormatted = xml.Load(NAME_OF_EXPENSE_FILE);
 
@@ -47,8 +48,8 @@ vector<FinancialMovement> ExpenseFile :: loadAllFinancialMovementsForLoggedUser(
                 xml.ResetMainPos();
 
                 while(xml.FindElem()) {
-
                     switch(numberOfItemFromFile) {
+
                     case 0:
                         financialMovement.setFinancialMovementId(atoi(xml.GetData().c_str()));
                         numberOfItemFromFile++;

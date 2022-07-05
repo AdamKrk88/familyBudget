@@ -10,9 +10,7 @@ string DateMethods :: getCurrentTimeFromSystem() {
     year = now->tm_year + 1900;
     month = now->tm_mon + 1;
     day = now->tm_mday;
-
     currentDate = AuxiliaryMethods :: convertFromIntToString(year) + "-" + convertMonthOrDayToProperFormat(month) + "-" + convertMonthOrDayToProperFormat(day);
-
     return currentDate;
 }
 
@@ -20,11 +18,11 @@ string DateMethods :: getCurrentTimeFromSystem() {
 string DateMethods :: convertMonthOrDayToProperFormat(int monthOrDay) {
 
     string monthAsString = AuxiliaryMethods :: convertFromIntToString(monthOrDay);
+
     if (monthAsString.size() == 1)
         monthAsString = "0" + monthAsString;
 
     return monthAsString;
-
 }
 
 
@@ -71,6 +69,7 @@ int DateMethods :: calculateNumberOfDaysForProvidedMonth(int month, int year) {
 
 
 bool DateMethods :: checkIfYearIsLeap (int year) {
+
     if((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
         return true;
     else
@@ -96,7 +95,6 @@ bool DateMethods :: checkIfFormatOfDateIsCorrect(string providedDate) {
         return false;
 
     return true;
-
 }
 
 
@@ -104,6 +102,7 @@ bool DateMethods :: checkIfDateIsValid(string dateToCheckInOneString) {
 
     int day = 0, month = 0, year = 0;
     vector<int> dateToCheck = convertDateInStringToIntVector(dateToCheckInOneString);
+
     day = dateToCheck[2];
     month = dateToCheck[1];
     year = dateToCheck[0];
@@ -116,12 +115,15 @@ bool DateMethods :: checkIfDateIsValid(string dateToCheckInOneString) {
 
     if(year > MAX_VALID_YEAR || year < MIN_VALID_YEAR)
         return false;
+
     if(month < 1 || month > 12)
         return false;
+
     if(day < 1 || day > 31)
         return false;
 
     if(month == 2) {
+
         if(checkIfYearIsLeap(year))
             return (day <= 29);
         else
@@ -141,13 +143,11 @@ bool DateMethods :: checkIfDateIsValid(string dateToCheckInOneString) {
 string DateMethods :: loadDateFromKeyboard() {
 
     string providedDateOrReturnStatement = "";
-
     getline(cin, providedDateOrReturnStatement);
     providedDateOrReturnStatement = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(providedDateOrReturnStatement);
 
     while(true) {
         if(checkIfFormatOfDateIsCorrect(providedDateOrReturnStatement)) {
-
             if(checkIfDateIsValid(providedDateOrReturnStatement)) {
                 break;
             } else {
@@ -204,16 +204,14 @@ vector<int> DateMethods :: enterStartEndDate() {
         cout << "Provide start date: ";
         startDate = loadDateFromKeyboard();
 
-        if(startDate == "") {
+        if(startDate == "")
             break;
-        }
 
         cout << "Provide end date: ";
         endDate = loadDateFromKeyboard();
 
-        if(endDate == "") {
+        if(endDate == "")
             break;
-        }
 
         startDateConvertedToIntFormat = convertDateFromStringToInt(startDate);
         endDateConvertedToIntFormat = convertDateFromStringToInt(endDate);
@@ -222,9 +220,7 @@ vector<int> DateMethods :: enterStartEndDate() {
             startEndDateProvidedFromKeyboard[0] = startDateConvertedToIntFormat;
             startEndDateProvidedFromKeyboard[1] = endDateConvertedToIntFormat;
             return startEndDateProvidedFromKeyboard;
-        }
-
-        else {
+        } else {
             cout << "Start date cannot be later than end date. Try once again" << endl;
         }
     }

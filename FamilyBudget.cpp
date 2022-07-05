@@ -17,16 +17,20 @@ void FamilyBudget :: registerUser() {
     userManager.registerUser();
 }
 
+
 void FamilyBudget :: logInUser() {
 
-     AuxiliaryMethods :: initialMessageOnScreen(" >>> USER LOG IN <<<");
+    AuxiliaryMethods :: initialMessageOnScreen(" >>> USER LOG IN <<<");
     userManager.logInUser();
+
     if (userManager.checkIfUserIsLoggedIn()) {
         incomeManager = new IncomeManager(NAME_OF_INCOME_FILE, userManager.getLoggedUserId());
         expenseManager = new ExpenseManager(NAME_OF_EXPENSE_FILE, userManager.getLoggedUserId());
     }
 
 }
+
+
 char FamilyBudget :: selectOptionFromUserMenu() {
     return menu.selectOptionFromUserMenu();
 }
@@ -35,11 +39,10 @@ char FamilyBudget :: selectOptionFromUserMenu() {
 void FamilyBudget :: addIncome() {
 
     AuxiliaryMethods :: initialMessageOnScreen(" >>> ADD INCOME <<<");
+
     if(userManager.checkIfUserIsLoggedIn()) {
         incomeManager -> addFinancialMovement();
-    }
-
-    else {
+    } else {
         cout << "User is not logged in!" << endl;
     }
 }
@@ -50,9 +53,7 @@ void FamilyBudget :: addExpense() {
     AuxiliaryMethods :: initialMessageOnScreen(" >>> ADD EXPENSE <<<");
     if(userManager.checkIfUserIsLoggedIn()) {
         expenseManager -> addFinancialMovement();
-    }
-
-    else {
+    } else {
         cout << "User is not logged in!" << endl;
     }
 }
@@ -92,13 +93,16 @@ void FamilyBudget :: printBalanceForProvidedPeriod() {
     }
 }
 
+
 void FamilyBudget :: changePassword() {
+
     AuxiliaryMethods :: initialMessageOnScreen(" >>> CHANGE PASSWORD <<<");
     userManager.changePassword();
 }
 
 
 void FamilyBudget :: logOutUser() {
+
     userManager.logOutUser();
     delete incomeManager;
     incomeManager = NULL;
@@ -106,15 +110,14 @@ void FamilyBudget :: logOutUser() {
     expenseManager = NULL;
 }
 
+
 void FamilyBudget :: printFinalBalanceOnScreen(double sumOfIncomes, double sumOfExpenses) {
 
     double finalBalance = sumOfIncomes - sumOfExpenses;
 
     if(AuxiliaryMethods :: checkIfDoubleNumberIsInteger(finalBalance)) {
         cout << "Balance is: " << setprecision(0) << fixed << finalBalance << " zl" << endl;
-    }
-
-    else {
+    } else {
         cout << "Balance is: " <<  setprecision(2) << fixed << finalBalance << " zl" << endl;
     }
 

@@ -24,8 +24,8 @@ string AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(string stringToAdjust
     }
 
     stringToAdjust = stringToAdjust.erase(0,numberOfSpacesBefore);
-
     lengthOfString = stringToAdjust.size();
+
     for(int i = lengthOfString - 1; i >= 0; i--) {
         if(stringToAdjust[i] == 32)
             numberOfSpacesAfter++;
@@ -34,21 +34,23 @@ string AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(string stringToAdjust
     }
 
     stringToAdjust = stringToAdjust.erase(lengthOfString - numberOfSpacesAfter,numberOfSpacesAfter);
-
     return stringToAdjust;
 }
 
 
 string AuxiliaryMethods :: convertFirstLetterOfOneStringToBeInUpperCaseRemainingPartInLowerCase(string text) {
+
     if (!text.empty()) {
         transform(text.begin(), text.end(), text.begin(), ::tolower);
         text[0] = toupper(text[0]);
     }
+
     return text;
 }
 
 
 string AuxiliaryMethods :: convertFromIntToString(int number) {
+
     ostringstream ss;
     ss << number;
     string str = ss.str();
@@ -57,10 +59,10 @@ string AuxiliaryMethods :: convertFromIntToString(int number) {
 
 
 int AuxiliaryMethods :: convertFromStringToInt(string text) {
+
     int number;
     istringstream iss(text);
     iss >> number;
-
     return number;
 }
 
@@ -73,16 +75,19 @@ bool AuxiliaryMethods :: checkIfProvidedStringContainsOnlyDigits(string dataToCh
     }
 
     return true;
-
 }
 
 
 bool AuxiliaryMethods :: checkIfReturnStatementWasProvided(string providedStatement) {
+
     if(providedStatement[0] == 82 || providedStatement[0] == 114) {
         transform(providedStatement.begin(), providedStatement.end(), providedStatement.begin(), :: tolower);
-        if(providedStatement == "return") true;
-        else return false;
-    } else return false;
+        if(providedStatement == "return")
+            return true;
+        else
+            return false;
+    } else
+        return false;
 }
 
 
@@ -92,41 +97,37 @@ int AuxiliaryMethods :: checkIfLineContainZeroOneOrMoreSigns(string text, char s
 
     if(position != string :: npos) {
         position = text.find(sign,position + 1);
-
         if(position != string :: npos) {
             return 2;
         } else {
             return 1;
         }
-
     } else {
         return 0;
     }
 }
+
 
 vector<int> AuxiliaryMethods :: calculateHowManyDotsOrCommasIsInTextLine(string text) {
 
     vector<int> numberOfSigns(2);
     numberOfSigns[0] = checkIfLineContainZeroOneOrMoreSigns(text, '.');
     numberOfSigns[1] = checkIfLineContainZeroOneOrMoreSigns(text, ',');
-
     return numberOfSigns;
-
 }
 
 
 string AuxiliaryMethods :: replaceCommaByDot(string textToAdjust) {
 
-
     char sign = ',';
     size_t position = textToAdjust.find(sign);
     textToAdjust.replace(position,1,".");
-
     return textToAdjust;
 }
 
 
 char AuxiliaryMethods :: loadCharFromKeyboard() {
+
     string inputFromKeyboard = "";
     char charLoadedFromKeyboard  = {0};
 
@@ -137,8 +138,8 @@ char AuxiliaryMethods :: loadCharFromKeyboard() {
             charLoadedFromKeyboard = inputFromKeyboard[0];
             break;
         }
-        cout << "It is not single char. Please try once again" << endl;
 
+        cout << "It is not single char. Please try once again" << endl;
     }
     return charLoadedFromKeyboard;
 }

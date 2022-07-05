@@ -2,6 +2,7 @@
 
 
 void IncomeFile :: addFinancialMovementToFile(FinancialMovement financialMovement) {
+
     CMarkup xml;
     bool fileExistCorrectlyFormatted = xml.Load(NAME_OF_INCOME_FILE);
 
@@ -79,9 +80,7 @@ vector<FinancialMovement> IncomeFile :: loadAllFinancialMovementsForLoggedUser(i
                 financialMovements.push_back(financialMovement);
                 numberOfItemFromFile = 0;
                 xml.OutOfElem();
-            }
-
-            else {
+            } else {
                 xml.OutOfElem();
             }
         }

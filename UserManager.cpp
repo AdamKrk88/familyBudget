@@ -18,7 +18,6 @@ void UserManager :: registerUser() {
 User UserManager :: provideDataForNewUser() {
 
     User user;
-
     user.setUserId(loadIdForNewUser());
 
     string name;
@@ -38,6 +37,7 @@ User UserManager :: provideDataForNewUser() {
     do {
         cout << "Enter your login: ";
         login = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(AuxiliaryMethods :: loadStringLineFromKeyboard());
+        login = AuxiliaryMethods :: convertFirstLetterOfOneStringToBeInUpperCaseRemainingPartInLowerCase(login);
         user.setLogin(login);
     } while (checkIfLoginForNewUserExistInSystem(user.getLogin()));
 
@@ -71,32 +71,21 @@ bool UserManager :: checkIfLoginForNewUserExistInSystem(string login) {
 }
 
 
-void UserManager :: printAllUsers() {
-
-    for(int i = 0; i < users.size(); i++) {
-        cout << users[i].getUserId() << endl;
-        cout << users[i].getLogin() << endl;
-        cout << users[i].getPassword() << endl;
-        cout << users[i].getName() << endl;
-        cout << users[i].getSurname() << endl;
-    }
-}
-
-
 void UserManager :: logInUser() {
 
     string login = "", password = "";
 
     cout << "Enter your login: ";
     login = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(AuxiliaryMethods :: loadStringLineFromKeyboard());
+    login = AuxiliaryMethods :: convertFirstLetterOfOneStringToBeInUpperCaseRemainingPartInLowerCase(login);
 
     vector <User>::iterator itr = users.begin();
+
     while (itr != users.end()) {
         if (itr -> getLogin() == login) {
             for (int numberOfAttempts = 3; numberOfAttempts > 0; numberOfAttempts--) {
                 cout << "Enter your password. Number of attempts: " << numberOfAttempts << ": ";
                 password = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(AuxiliaryMethods :: loadStringLineFromKeyboard());
-
                 if (itr -> getPassword() == password) {
                     cout << endl << "You logged in." << endl << endl;
                     cout << "Click enter to continue" << endl;
@@ -106,7 +95,7 @@ void UserManager :: logInUser() {
                     return;
                 }
             }
-            cout << "You provided incorrect password 3 times." << endl;
+            cout << endl << "You provided incorrect password 3 times." << endl;
             cout << "Click enter to continue" << endl;
             getchar();
             cin.sync();
@@ -115,7 +104,8 @@ void UserManager :: logInUser() {
         }
         itr++;
     }
-    cout << "This login does not exist in system" << endl << endl;
+
+    cout << endl << "This login does not exist in system" << endl << endl;
     cout << "Click enter to continue" << endl;
     getchar();
     cin.sync();
@@ -125,6 +115,7 @@ void UserManager :: logInUser() {
 
 
 bool UserManager :: checkIfUserIsLoggedIn() {
+
     if (loggedUserId > 0)
         return true;
     else
@@ -153,6 +144,7 @@ void UserManager :: changePassword() {
 
 
 void UserManager :: logOutUser() {
+
     loggedUserId = 0;
     cout << endl << "You logged out" << endl;
     cout << "Click enter to continue" << endl;

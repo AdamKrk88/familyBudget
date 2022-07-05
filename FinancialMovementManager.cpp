@@ -1,5 +1,6 @@
 #include "FinancialMovementManager.h"
 
+
 int FinancialMovementManager :: getLoggedUserId() {
     return LOGGED_USER_ID;
 }
@@ -30,14 +31,12 @@ void FinancialMovementManager :: addFinancialMovement() {
     } else {
         cout << "Not correct. Return to User menu" << endl;
     }
-
 }
 
 
 FinancialMovement FinancialMovementManager :: provideDataForFinancialMovement(string dateProvidedByUserOrTakenFromSystem) {
 
     FinancialMovement financialMovement;
-
     financialMovement.setFinancialMovementId(xmlFile -> getLastItemId() + 1);
     financialMovement.setUserId(getLoggedUserId());
     financialMovement.setDate(DateMethods :: convertDateFromStringToInt(dateProvidedByUserOrTakenFromSystem));
@@ -56,6 +55,7 @@ FinancialMovement FinancialMovementManager :: provideDataForFinancialMovement(st
 
 }
 
+
 string FinancialMovementManager :: loadFinancialMovementAmountFromKeyboard() {
 
     string amount = "";
@@ -70,7 +70,6 @@ string FinancialMovementManager :: loadFinancialMovementAmountFromKeyboard() {
             if(numberOfCommasOrDotsInAmount[1] == 1) {
                 amount = AuxiliaryMethods :: replaceCommaByDot(amount);
             }
-
             break;
         } else {
             cout << "Amount provided is not correct. Provide " << TYPE_OF_FINANCIAL_MOVEMENT << " amount: ";
@@ -78,6 +77,7 @@ string FinancialMovementManager :: loadFinancialMovementAmountFromKeyboard() {
             amount = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(amount);
         }
     }
+
     return amount;
 }
 
@@ -99,7 +99,6 @@ bool FinancialMovementManager :: checkIfAmountFormatIsCorrect(string amount, vec
         size_t positionOfComma = amount.find(',');
         size_t positionOfDot = amount.find('.');
         size_t positiionOfSign;
-
         if(positionOfComma != string :: npos) {
             positiionOfSign = positionOfComma;
         } else {
@@ -117,17 +116,13 @@ bool FinancialMovementManager :: checkIfAmountFormatIsCorrect(string amount, vec
                 return false;
             }
         }
-    }
-
-    else if(numberOfCommas == 0 && numberOfDots == 0) {
+    } else if(numberOfCommas == 0 && numberOfDots == 0) {
         for(int i = 1; i < amountSize - 1; i++) {
             if(!isdigit(amount[i])) {
                 return false;
             }
         }
-    }
-
-    else {
+    } else {
         return false;
     }
 
@@ -174,9 +169,7 @@ void FinancialMovementManager :: printFinancialMovementsListedInProvidedDataForL
     if(financialMovementsForGivenPeriod.empty()) {
         cout << endl << separator << right << setw(4) << "No " << TYPE_OF_FINANCIAL_MOVEMENT << "s" << string(line.size() - 4 - TYPE_OF_FINANCIAL_MOVEMENT.size() - 1 - 2*separatorWidth,' ') << separator;
         cout << endl << line;
-    }
-
-    else {
+    } else {
         int numberOfFinancialMovementsRegistered = financialMovementsForGivenPeriod.size();
 
         for(int i = 0; i < numberOfFinancialMovementsRegistered; i++) {
@@ -231,12 +224,10 @@ vector<FinancialMovement> FinancialMovementManager :: createSortedVectorOfFinanc
     if(!financialMovementsForGivenPeriod.empty()) {
         while(financialMovementsForGivenPeriod[indexNumber].getDate() <= endDateConvertedToIntFormat) {
             indexNumber++;
-
             if(indexNumber == lengthOfFinancialMovementsForGivenPeriodVector) {
                 break;
             }
         }
-
         if(lengthOfFinancialMovementsForGivenPeriodVector - indexNumber != 0) {
             while(financialMovementsForGivenPeriod[indexNumber].getDate() > endDateConvertedToIntFormat) {
                 financialMovementsForGivenPeriod.erase(financialMovementsForGivenPeriod.begin() + indexNumber);
@@ -338,11 +329,9 @@ double FinancialMovementManager :: calculateSumOfAmountsForFinancialMovements(ve
 
 void FinancialMovementManager :: printFinancialMovementsSumOnScreen(double financialMovementSum) {
 
-  if(AuxiliaryMethods ::checkIfDoubleNumberIsInteger(financialMovementSum)) {
+    if(AuxiliaryMethods ::checkIfDoubleNumberIsInteger(financialMovementSum)) {
         cout << endl << "Sum of " << TYPE_OF_FINANCIAL_MOVEMENT << "s is " << setprecision(0) << fixed << financialMovementSum << " zl" << endl << endl << endl;
-    }
-
-    else {
+    } else {
         cout << endl << "Sum of " << TYPE_OF_FINANCIAL_MOVEMENT << "s is " << setprecision(2) << fixed << financialMovementSum << " zl" << endl << endl << endl;
     }
 }
@@ -354,9 +343,7 @@ int FinancialMovementManager :: calculateProperWidthForNameInFirstColumn(string 
 
     if(firstColumnName == "Expense date") {
         firstColumnNameWidth = firstColumnName.size() - 1;
-    }
-
-    else {
+    } else {
         firstColumnNameWidth = firstColumnName.size();
     }
 

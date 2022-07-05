@@ -29,7 +29,6 @@ public:
     };
 
     void registerUser();
-    void printAllUsers();
     void logInUser();
     bool checkIfUserIsLoggedIn();
     void changePassword();

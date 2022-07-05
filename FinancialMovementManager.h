@@ -11,6 +11,7 @@
 
 using namespace std;
 
+
 class FinancialMovementManager {
 
     const int LOGGED_USER_ID;
@@ -32,7 +33,7 @@ protected:
 
 public:
     FinancialMovementManager(int loggedUserId, string typeOfFinancialMovement) : LOGGED_USER_ID(loggedUserId), TYPE_OF_FINANCIAL_MOVEMENT(typeOfFinancialMovement) {
-    xmlFile = NULL;
+        xmlFile = NULL;
     };
 
     int getLoggedUserId();
