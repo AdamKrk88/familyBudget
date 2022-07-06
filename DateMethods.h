@@ -12,10 +12,8 @@ using namespace std;
 
 class DateMethods {
 
- //   static string convertMonthOrDayToProperFormat(int monthOrDay);
     static bool checkIfFormatOfDateIsCorrect(string providedDate);
     static bool checkIfDateIsValid(string dateToCheckInOneString);
-//    static vector<int> convertDateInStringToIntVector(string dateFormat);
     static bool checkIfYearIsLeap (int year);
 
 public:
@@ -27,9 +25,7 @@ public:
     static vector<int> convertDateInStringToIntVector(string dateFormat);
     static string convertMonthOrDayToProperFormat(int monthOrDay);
     static vector<int> enterStartEndDate();
-
 };
-
 
 
 #endif

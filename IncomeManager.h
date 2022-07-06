@@ -5,36 +5,23 @@
 #include <vector>
 #include <iomanip>
 
-#include "Income.h"
 #include "DateMethods.h"
 #include "AuxiliaryMethods.h"
 #include "IncomeFile.h"
-#include "BalanceManager.h"
+#include "FinancialMovementManager.h"
 
 using namespace std;
 
-class IncomeManager : private BalanceManager {
 
-vector<Income> incomes;
-IncomeFile incomeFile;
-//const int LOGGED_USER_ID;
+class IncomeManager : public FinancialMovementManager {
 
-Income provideDataForIncome(string dateProvidedByUserOrTakenFromSystem);
-string loadIncomeAmountFromKeyboard();
-bool checkIfAmountFormatIsCorrect(string amount, vector<int> &numberOfCommasOrDotsInAmount);
-void printIncomesListedInProvidedDataForLoggedInUser(vector<Income> &incomesForGivenPeriod);
-vector<Income> createSortedVectorOfIncomesForGivenPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat);
+    IncomeFile incomeFile;
 
 public:
-    IncomeManager(string nameOfIncomeFile, int loggedUserId) : incomeFile(nameOfIncomeFile), BalanceManager(loggedUserId) {
-    incomes = incomeFile.loadAllIncomesForLoggedUser(getLoggedUserId());
+    IncomeManager(string nameOfIncomeFile, int loggedUserId) : incomeFile(nameOfIncomeFile), FinancialMovementManager(loggedUserId, "income") {
+        financialMovements = incomeFile.loadAllFinancialMovementsForLoggedUser(getLoggedUserId());
+        xmlFile = &incomeFile;
     };
-    void addIncome();
-    void printAllIncomes();
-    double printIncomeBalanceForProvidedPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat);
-    double printIncomeBalanceForCurrentMonth();
-    double printIncomeBalanceForPreviousMonth();
-
 };
 
 

@@ -5,25 +5,27 @@
 #include <vector>
 
 #include "AuxiliaryMethods.h"
-#include "Expense.h"
+#include "FinancialMovement.h"
 #include "DateMethods.h"
 #include "Markup.h"
+#include "XmlFile.h"
 
 using namespace std;
 
 
-class ExpenseFile {
+class ExpenseFile : public XmlFile {
 
     const string NAME_OF_EXPENSE_FILE;
     int lastExpenseId;
 
 public:
     ExpenseFile(string nameOfExpenseFile) : NAME_OF_EXPENSE_FILE(nameOfExpenseFile) {
-    lastExpenseId = 0;
+        lastExpenseId = 0;
     };
-    void addExpenseToFile(Expense income);
-    vector<Expense> loadAllExpensesForLoggedUser(int loggedUserId);
-    int getLastExpenseId();
+
+    virtual void addFinancialMovementToFile(FinancialMovement financialMovement);
+    virtual vector<FinancialMovement> loadAllFinancialMovementsForLoggedUser(int loggedUserId);
+    virtual int getLastItemId();
 };
 
 

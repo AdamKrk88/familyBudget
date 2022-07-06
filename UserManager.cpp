@@ -3,8 +3,6 @@
 
 void UserManager :: registerUser() {
 
-    system("cls");
-    cout << " >>> USER REGISTRATION <<<" << endl << endl;
     User user = provideDataForNewUser();
 
     users.push_back(user);
@@ -13,13 +11,13 @@ void UserManager :: registerUser() {
     cout << endl << "Account created" << endl << endl;
     cout << "Click enter to continue" << endl;
     getchar();
+    cin.sync();
 }
 
 
 User UserManager :: provideDataForNewUser() {
 
     User user;
-
     user.setUserId(loadIdForNewUser());
 
     string name;
@@ -39,6 +37,7 @@ User UserManager :: provideDataForNewUser() {
     do {
         cout << "Enter your login: ";
         login = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(AuxiliaryMethods :: loadStringLineFromKeyboard());
+        login = AuxiliaryMethods :: convertFirstLetterOfOneStringToBeInUpperCaseRemainingPartInLowerCase(login);
         user.setLogin(login);
     } while (checkIfLoginForNewUserExistInSystem(user.getLogin()));
 
@@ -72,59 +71,51 @@ bool UserManager :: checkIfLoginForNewUserExistInSystem(string login) {
 }
 
 
-void UserManager :: printAllUsers() {
-
-for(int i = 0; i < users.size(); i++) {
-    cout << users[i].getUserId() << endl;
-    cout << users[i].getLogin() << endl;
-    cout << users[i].getPassword() << endl;
-    cout << users[i].getName() << endl;
-    cout << users[i].getSurname() << endl;
-}
-}
-
-
 void UserManager :: logInUser() {
 
-    system("cls");
-    cout << " >>> USER LOG IN <<<" << endl << endl;
     string login = "", password = "";
 
     cout << "Enter your login: ";
     login = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(AuxiliaryMethods :: loadStringLineFromKeyboard());
+    login = AuxiliaryMethods :: convertFirstLetterOfOneStringToBeInUpperCaseRemainingPartInLowerCase(login);
 
     vector <User>::iterator itr = users.begin();
+
     while (itr != users.end()) {
         if (itr -> getLogin() == login) {
             for (int numberOfAttempts = 3; numberOfAttempts > 0; numberOfAttempts--) {
                 cout << "Enter your password. Number of attempts: " << numberOfAttempts << ": ";
                 password = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(AuxiliaryMethods :: loadStringLineFromKeyboard());
-
                 if (itr -> getPassword() == password) {
                     cout << endl << "You logged in." << endl << endl;
                     cout << "Click enter to continue" << endl;
                     getchar();
+                    cin.sync();
                     loggedUserId = itr -> getUserId();
                     return;
                 }
             }
-            cout << "You provided incorrect password 3 times." << endl;
+            cout << endl << "You provided incorrect password 3 times." << endl;
             cout << "Click enter to continue" << endl;
             getchar();
+            cin.sync();
             loggedUserId = 0;
             return;
         }
         itr++;
     }
-    cout << "This login does not exist in system" << endl << endl;
+
+    cout << endl << "This login does not exist in system" << endl << endl;
     cout << "Click enter to continue" << endl;
     getchar();
+    cin.sync();
     loggedUserId = 0;
     return;
 }
 
 
 bool UserManager :: checkIfUserIsLoggedIn() {
+
     if (loggedUserId > 0)
         return true;
     else
@@ -135,7 +126,6 @@ bool UserManager :: checkIfUserIsLoggedIn() {
 void UserManager :: changePassword() {
 
     string newPassword = "";
-    system("cls");
     cout << "Enter new password: ";
     newPassword = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(AuxiliaryMethods :: loadStringLineFromKeyboard());
 
@@ -146,6 +136,7 @@ void UserManager :: changePassword() {
             cout << "Password has been changed." << endl;
             cout << "Click enter to continue" << endl;
             getchar();
+            cin.sync();
         }
     }
     userFile.changePasswordInFile(loggedUserId,newPassword);
@@ -153,13 +144,15 @@ void UserManager :: changePassword() {
 
 
 void UserManager :: logOutUser() {
+
     loggedUserId = 0;
     cout << endl << "You logged out" << endl;
     cout << "Click enter to continue" << endl;
     getchar();
+    cin.sync();
 }
 
 
- int UserManager :: getLoggedUserId() {
+int UserManager :: getLoggedUserId() {
     return loggedUserId;
- }
+}

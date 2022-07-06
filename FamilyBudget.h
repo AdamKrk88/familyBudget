@@ -2,7 +2,7 @@
 #define FAMILYBUDGET_H
 
 #include <iostream>
-#include <cmath>
+
 
 #include "UserManager.h"
 #include "IncomeManager.h"
@@ -20,6 +20,8 @@ class FamilyBudget {
     Menu menu;
     const string NAME_OF_INCOME_FILE;
     const string NAME_OF_EXPENSE_FILE;
+
+    void printFinalBalanceOnScreen(double sumOfIncomes, double sumOfExpenses);
 
 public:
     FamilyBudget(string nameOfUserFile, string nameOfIncomeFile, string nameOfExpenseFile) : userManager(nameOfUserFile), NAME_OF_INCOME_FILE(nameOfIncomeFile), NAME_OF_EXPENSE_FILE(nameOfExpenseFile)  {
@@ -47,8 +49,6 @@ public:
     void printBalanceForProvidedPeriod();
     void changePassword();
     void logOutUser();
-
-
 };
 
 

@@ -5,36 +5,23 @@
 #include <vector>
 #include <iomanip>
 
-#include "Expense.h"
 #include "DateMethods.h"
 #include "AuxiliaryMethods.h"
 #include "ExpenseFile.h"
-#include "BalanceManager.h"
+#include "FinancialMovementManager.h"
 
 using namespace std;
 
 
-class ExpenseManager : private BalanceManager {
+class ExpenseManager : public FinancialMovementManager {
 
-vector<Expense> expenses;
-ExpenseFile expenseFile;
-//const int LOGGED_USER_ID;
-
-Expense provideDataForExpense(string dateProvidedByUserOrTakenFromSystem);
-string loadExpenseAmountFromKeyboard();
-bool checkIfAmountFormatIsCorrect(string amount, vector<int> &numberOfCommasOrDotsInAmount);
-vector<Expense> createSortedVectorOfExpensesForGivenPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat);
-void printExpensesListedInProvidedDataForLoggedInUser(vector<Expense> &expensesForGivenPeriod);
+    ExpenseFile expenseFile;
 
 public:
-    ExpenseManager(string nameOfExpenseFile, int loggedUserId) : expenseFile(nameOfExpenseFile), BalanceManager(loggedUserId) {
-    expenses = expenseFile.loadAllExpensesForLoggedUser(getLoggedUserId());
+    ExpenseManager(string nameOfExpenseFile, int loggedUserId) : expenseFile(nameOfExpenseFile), FinancialMovementManager(loggedUserId, "expense") {
+        financialMovements = expenseFile.loadAllFinancialMovementsForLoggedUser(getLoggedUserId());
+        xmlFile = &expenseFile;
     };
-    void addExpense();
-    void printAllExpenses();
-    double printExpenseBalanceForProvidedPeriod(int startDateConvertedToIntFormat, int endDateConvertedToIntFormat);
-    double printExpenseBalanceForCurrentMonth();
-    double printExpenseBalanceForPreviousMonth();
 };
 
 

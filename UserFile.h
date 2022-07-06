@@ -20,12 +20,7 @@ public:
     void addUserToFile(User user);
     vector<User> loadAllUsersFromFileToVector();
     void changePasswordInFile(int userId, string newPassword);
-
-
 };
-
-
-
 
 
 #endif

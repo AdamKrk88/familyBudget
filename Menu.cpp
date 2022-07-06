@@ -1,5 +1,6 @@
 #include "Menu.h"
 
+
 char Menu :: selectOptionFromMainMenu() {
 
     system("cls");
