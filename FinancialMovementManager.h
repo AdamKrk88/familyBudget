@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
+#include <stdio.h>
 
 #include "XmlFile.h"
 #include "DateMethods.h"

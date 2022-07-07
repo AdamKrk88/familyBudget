@@ -9,19 +9,18 @@ int FinancialMovementManager :: getLoggedUserId() {
 void FinancialMovementManager :: addFinancialMovement() {
 
     FinancialMovement financialMovement;
-    string dateAsOfTodayOrPast = "";
+    char dateAsOfTodayOrPast = {0};
     string dateProvidedByUserOrTakenFromSystem = "";
-    cout << "Provide date for your " << TYPE_OF_FINANCIAL_MOVEMENT << " - enter \"today\" or \"past\": ";
-    cin >> dateAsOfTodayOrPast;
-    cin.sync();
+    cout << "Provide date for your " << TYPE_OF_FINANCIAL_MOVEMENT << " - enter \"T\" for today or \"P\" for past day: ";
+    dateAsOfTodayOrPast = AuxiliaryMethods :: loadCharFromKeyboard();
 
-    if (dateAsOfTodayOrPast == "today") {
+    if (dateAsOfTodayOrPast == 'T') {
         dateProvidedByUserOrTakenFromSystem = DateMethods :: getCurrentTimeFromSystem();
         financialMovement = provideDataForFinancialMovement(dateProvidedByUserOrTakenFromSystem);
         financialMovements.push_back(financialMovement);
         xmlFile -> addFinancialMovementToFile(financialMovement);
-    } else if(dateAsOfTodayOrPast == "past") {
-        cout << "Enter date in format YYYY-MM-DD: ";
+    } else if(dateAsOfTodayOrPast == 'P') {
+        cout << endl << "Enter date in format YYYY-MM-DD: ";
         dateProvidedByUserOrTakenFromSystem = DateMethods :: loadDateFromKeyboard();
         if(dateProvidedByUserOrTakenFromSystem != "") {
             financialMovement = provideDataForFinancialMovement(dateProvidedByUserOrTakenFromSystem);
@@ -29,7 +28,10 @@ void FinancialMovementManager :: addFinancialMovement() {
             xmlFile -> addFinancialMovementToFile(financialMovement);
         }
     } else {
-        cout << "Not correct. Return to User menu" << endl;
+        cout << endl << "Not correct. Return to User menu" << endl;
+        cout << "Click enter to continue" << endl;
+        getchar();
+        cin.sync();
     }
 }
 

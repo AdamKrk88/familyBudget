@@ -80,14 +80,10 @@ bool AuxiliaryMethods :: checkIfProvidedStringContainsOnlyDigits(string dataToCh
 
 bool AuxiliaryMethods :: checkIfReturnStatementWasProvided(string providedStatement) {
 
-    if(providedStatement[0] == 82 || providedStatement[0] == 114) {
-        transform(providedStatement.begin(), providedStatement.end(), providedStatement.begin(), :: tolower);
-        if(providedStatement == "return")
-            return true;
-        else
-            return false;
-    } else
-        return false;
+    if(providedStatement[0] == 82 && providedStatement.size() == 1)
+        return true;
+
+    return false;
 }
 
 
@@ -139,7 +135,7 @@ char AuxiliaryMethods :: loadCharFromKeyboard() {
             break;
         }
 
-        cout << "It is not single char. Please try once again" << endl;
+        cout << endl << "It is not single char. Please try once again" << endl;
     }
     return charLoadedFromKeyboard;
 }
