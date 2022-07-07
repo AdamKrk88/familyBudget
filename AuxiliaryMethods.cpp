@@ -141,22 +141,16 @@ char AuxiliaryMethods :: loadCharFromKeyboard() {
 }
 
 
-bool AuxiliaryMethods :: checkIfDoubleNumberIsInteger(double numberToCheck) {
-
-    double intpart;
-    double fractionalPartOfDoubleNumber = 0;
-    fractionalPartOfDoubleNumber = modf(numberToCheck, &intpart);
-
-    if(fractionalPartOfDoubleNumber == 0) {
-        return true;
-    }
-
-    return false;
-}
-
-
 void AuxiliaryMethods :: initialMessageOnScreen(string initialMessage) {
 
     system("cls");
     cout << initialMessage << endl << endl;
+}
+
+
+int AuxiliaryMethods :: checkNumberOfDigitsInStringAfterSign(string numberInStringFormat, size_t signPosition) {
+
+    int lengthOfNumberInStringFormat = numberInStringFormat.size();
+    int numberOfDigitsInStringAfterSign = lengthOfNumberInStringFormat - 1 - signPosition;
+    return numberOfDigitsInStringAfterSign;
 }
