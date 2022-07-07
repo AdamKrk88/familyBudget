@@ -9,19 +9,19 @@ int FinancialMovementManager :: getLoggedUserId() {
 void FinancialMovementManager :: addFinancialMovement() {
 
     FinancialMovement financialMovement;
-    string dateAsOfTodayOrPast = "";
+    char dateAsOfTodayOrPast = {0};
     string dateProvidedByUserOrTakenFromSystem = "";
-    cout << "Provide date for your " << TYPE_OF_FINANCIAL_MOVEMENT << " - enter \"today\" or \"past\": ";
-    cin >> dateAsOfTodayOrPast;
-    cin.sync();
+    cout << "Provide date for your " << TYPE_OF_FINANCIAL_MOVEMENT << " - enter \"T\" for today or \"P\" for past day: ";
+    dateAsOfTodayOrPast = AuxiliaryMethods :: loadCharFromKeyboard();
 
-    if (dateAsOfTodayOrPast == "today") {
+    if (dateAsOfTodayOrPast == 'T') {
+        cout << endl;
         dateProvidedByUserOrTakenFromSystem = DateMethods :: getCurrentTimeFromSystem();
         financialMovement = provideDataForFinancialMovement(dateProvidedByUserOrTakenFromSystem);
         financialMovements.push_back(financialMovement);
         xmlFile -> addFinancialMovementToFile(financialMovement);
-    } else if(dateAsOfTodayOrPast == "past") {
-        cout << "Enter date in format YYYY-MM-DD: ";
+    } else if(dateAsOfTodayOrPast == 'P') {
+        cout << endl << "Enter date in format YYYY-MM-DD: ";
         dateProvidedByUserOrTakenFromSystem = DateMethods :: loadDateFromKeyboard();
         if(dateProvidedByUserOrTakenFromSystem != "") {
             financialMovement = provideDataForFinancialMovement(dateProvidedByUserOrTakenFromSystem);
@@ -29,7 +29,10 @@ void FinancialMovementManager :: addFinancialMovement() {
             xmlFile -> addFinancialMovementToFile(financialMovement);
         }
     } else {
-        cout << "Not correct. Return to User menu" << endl;
+        cout << endl << "Not correct. Return to User menu" << endl;
+        cout << "Click enter to continue" << endl;
+        getchar();
+        cin.sync();
     }
 }
 
@@ -42,7 +45,7 @@ FinancialMovement FinancialMovementManager :: provideDataForFinancialMovement(st
     financialMovement.setDate(DateMethods :: convertDateFromStringToInt(dateProvidedByUserOrTakenFromSystem));
 
     string financialMovementDescription;
-    cout << endl << "Enter your " << TYPE_OF_FINANCIAL_MOVEMENT << " description: ";
+    cout << "Enter your " << TYPE_OF_FINANCIAL_MOVEMENT << " description: ";
     getline(cin, financialMovementDescription);
     financialMovementDescription = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(financialMovementDescription);
     financialMovement.setFinancialMovementDescription(financialMovementDescription);
@@ -69,7 +72,14 @@ string FinancialMovementManager :: loadFinancialMovementAmountFromKeyboard() {
         if(checkIfAmountFormatIsCorrect(amount,numberOfCommasOrDotsInAmount)) {
             if(numberOfCommasOrDotsInAmount[1] == 1) {
                 amount = AuxiliaryMethods :: replaceCommaByDot(amount);
+                numberOfCommasOrDotsInAmount = AuxiliaryMethods :: calculateHowManyDotsOrCommasIsInTextLine(amount);
             }
+            if(numberOfCommasOrDotsInAmount[0] == 1) {
+                size_t positionOfDot = amount.find('.');
+                if(AuxiliaryMethods ::checkNumberOfDigitsInStringAfterSign(amount,positionOfDot) == 1)
+                    amount = amount + '0';
+            } else if(numberOfCommasOrDotsInAmount[0] == 0)
+                amount = amount + ".00";
             break;
         } else {
             cout << "Amount provided is not correct. Provide " << TYPE_OF_FINANCIAL_MOVEMENT << " amount: ";
@@ -116,6 +126,10 @@ bool FinancialMovementManager :: checkIfAmountFormatIsCorrect(string amount, vec
                 return false;
             }
         }
+
+        if(AuxiliaryMethods :: checkNumberOfDigitsInStringAfterSign(amount, positiionOfSign) > 2)
+            return false;
+
     } else if(numberOfCommas == 0 && numberOfDots == 0) {
         for(int i = 1; i < amountSize - 1; i++) {
             if(!isdigit(amount[i])) {
@@ -329,11 +343,7 @@ double FinancialMovementManager :: calculateSumOfAmountsForFinancialMovements(ve
 
 void FinancialMovementManager :: printFinancialMovementsSumOnScreen(double financialMovementSum) {
 
-    if(AuxiliaryMethods ::checkIfDoubleNumberIsInteger(financialMovementSum)) {
-        cout << endl << "Sum of " << TYPE_OF_FINANCIAL_MOVEMENT << "s is " << setprecision(0) << fixed << financialMovementSum << " zl" << endl << endl << endl;
-    } else {
-        cout << endl << "Sum of " << TYPE_OF_FINANCIAL_MOVEMENT << "s is " << setprecision(2) << fixed << financialMovementSum << " zl" << endl << endl << endl;
-    }
+    cout << endl << "Sum of " << TYPE_OF_FINANCIAL_MOVEMENT << "s is " << setprecision(2) << fixed << financialMovementSum << " zl" << endl << endl << endl;
 }
 
 

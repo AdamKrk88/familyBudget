@@ -26,8 +26,8 @@ public:
     static string replaceCommaByDot(string textToAdjust);
     static vector<int> calculateHowManyDotsOrCommasIsInTextLine(string text);
     static char loadCharFromKeyboard();
-    static bool checkIfDoubleNumberIsInteger(double numberToCheck);
     static void initialMessageOnScreen(string initialMessage);
+    static int checkNumberOfDigitsInStringAfterSign(string numberInStringFormat, size_t signPosition);
 };
 
 

@@ -114,13 +114,7 @@ void FamilyBudget :: logOutUser() {
 void FamilyBudget :: printFinalBalanceOnScreen(double sumOfIncomes, double sumOfExpenses) {
 
     double finalBalance = sumOfIncomes - sumOfExpenses;
-
-    if(AuxiliaryMethods :: checkIfDoubleNumberIsInteger(finalBalance)) {
-        cout << "Balance is: " << setprecision(0) << fixed << finalBalance << " zl" << endl;
-    } else {
-        cout << "Balance is: " <<  setprecision(2) << fixed << finalBalance << " zl" << endl;
-    }
-
+    cout << "Balance is: " <<  setprecision(2) << fixed << finalBalance << " zl" << endl;
     cout << "(+ means gain, - means loss)" << endl << endl;
     cout << "Click enter to continue";
     getchar();

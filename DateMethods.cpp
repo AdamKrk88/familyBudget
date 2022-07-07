@@ -152,7 +152,7 @@ string DateMethods :: loadDateFromKeyboard() {
                 break;
             } else {
                 cout << endl << "Date is not valid" << endl << "Provide date between 2000-01-01 and last day of current month"
-                     << endl << "Or enter \"return\" to go back to User Menu: ";
+                     << endl << "Or enter \"R\" to go back to User Menu: ";
                 getline(cin, providedDateOrReturnStatement);
                 providedDateOrReturnStatement = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(providedDateOrReturnStatement);
                 if(AuxiliaryMethods :: checkIfReturnStatementWasProvided(providedDateOrReturnStatement)) {
@@ -162,7 +162,7 @@ string DateMethods :: loadDateFromKeyboard() {
             }
         } else {
             cout << endl << "Format of date is not correct."
-                 << endl << "Please provide YYYY-MM-DD or enter \"return\" to go back to User Menu: ";
+                 << endl << "Please provide YYYY-MM-DD or enter \"R\" to go back to User Menu: ";
             getline(cin, providedDateOrReturnStatement);
             providedDateOrReturnStatement = AuxiliaryMethods :: deleteSpaceBeforeAndAfterString(providedDateOrReturnStatement);
             if(AuxiliaryMethods :: checkIfReturnStatementWasProvided(providedDateOrReturnStatement)) {
