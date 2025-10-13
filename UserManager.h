@@ -2,6 +2,7 @@
 #define USERMANAGER_H
 
 #include <iostream>
+#include <limits>
 #include <vector>
 #include <stdio.h>
 

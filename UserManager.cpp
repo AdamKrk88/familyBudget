@@ -29,7 +29,7 @@ User UserManager :: provideDataForNewUser() {
     string surname;
     cout << "Enter your surname: ";
     cin >> surname;
-    cin.sync();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     surname = AuxiliaryMethods :: convertFirstLetterOfOneStringToBeInUpperCaseRemainingPartInLowerCase(surname);
     user.setSurname(surname);
 
